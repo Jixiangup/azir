@@ -6,7 +6,6 @@ import com.bnyte.azir.common.entity.console.User;
 import com.bnyte.azir.common.enums.ECookie;
 import com.bnyte.azir.common.exception.RdosDefineException;
 import com.bnyte.azir.common.jwt.JWTHS256;
-import com.bnyte.azir.common.jwt.JWTRSA256;
 import com.bnyte.azir.common.util.CookieUtils;
 import com.bnyte.azir.common.web.response.Code;
 import com.bnyte.azir.dao.mapper.UserMapper;
@@ -46,7 +45,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new RdosDefineException(Code.AUTHENTICATION_ERROR);
         }
 
-        // 生成cookie
+        // 生成token
         String token = JWTHS256.buildToken(authenticate);
 
         // 写cookie
