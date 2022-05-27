@@ -1,0 +1,11 @@
+# 服务端口
+server:
+  port: 5000
+
+# 数据源配置
+datasource:
+  mysql:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 5c2891d9-45fb-4240-9f0e-50222099d9bd
+    url: jdbc:mysql://121.40.209.124:6033/azir

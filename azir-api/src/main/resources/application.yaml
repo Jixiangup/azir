@@ -2,9 +2,3 @@ server:
   port: 5000
   servlet:
     context-path: /azir
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
-    url: jdbc:mysql://127.0.0.1:3306/azir
