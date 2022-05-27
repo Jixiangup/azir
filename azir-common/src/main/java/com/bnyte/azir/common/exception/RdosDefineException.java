@@ -1,4 +1,4 @@
-package com.bnyte.azir.api.exception;
+package com.bnyte.azir.common.exception;
 
 import com.bnyte.azir.common.web.response.Code;
 

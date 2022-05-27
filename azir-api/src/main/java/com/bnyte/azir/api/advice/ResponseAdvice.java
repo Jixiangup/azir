@@ -1,8 +1,8 @@
 package com.bnyte.azir.api.advice;
 
+import com.bnyte.azir.common.exception.RdosDefineException;
 import com.bnyte.azir.common.web.response.Code;
 import com.bnyte.azir.common.web.response.R;
-import com.bnyte.azir.api.exception.RdosDefineException;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
