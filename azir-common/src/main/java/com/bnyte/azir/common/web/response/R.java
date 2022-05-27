@@ -12,6 +12,8 @@ import java.io.Serializable;
 @Api("响应结果集")
 public class R<T> implements Serializable {
 
+    private static final long serialVersionUID = 9426410000L;
+
     /**
      * 响应状态码
      */
@@ -25,6 +27,18 @@ public class R<T> implements Serializable {
     private String message;
 
     /**
+     * 本次请求事件id
+     */
+    @ApiModelProperty("事件id")
+    private String requestId;
+
+    /**
+     * 请求时间戳
+     */
+    @ApiModelProperty("请求时间戳")
+    private Long timestamp;
+
+    /**
      * 响应结果
      */
     @ApiModelProperty("响应结果对象")
@@ -34,8 +48,60 @@ public class R<T> implements Serializable {
 
     }
 
+    private R(T data) {
+        this.data = data;
+    }
+
+    /**
+     * 响应空data数据
+     * @return 响应空data数据 状态为OK {@link Code}
+     */
+    public static <T> R<T> ok(T data) {
+        return R.build(new R<>(data));
+    }
+
+    /**
+     * 响应空data数据
+     * @return 响应空data数据 状态为error {@link Code}
+     */
+    public static R<Void> fail(Code code) {
+        return R.build(code);
+    }
+
+    /**
+     * 响应空data数据并指定message
+     * @return 响应空data数据 状态为error {@link Code}
+     */
+    public static R<Void> fail(String message, Code code) {
+        return R.build(message, code);
+    }
+
+    /**
+     * 响应空data数据
+     * @return 响应空data数据 状态为OK {@link Code}
+     */
     public static R<Void> empty() {
-        return new R<>();
+        return R.build(new R<>());
+    }
+
+    private static R<Void> build(Code code) {
+        R<Void> voidR = new R<>();
+        voidR.setCode(code.getCode());
+        voidR.setMessage(code.getMessage());
+        return voidR;
+    }
+
+    private static R<Void> build(String message, Code code) {
+        R<Void> voidR = new R<>();
+        voidR.setCode(code.getCode());
+        voidR.setMessage(String.format(code.getMessage(), message));
+        return voidR;
+    }
+
+    private static <T> R<T> build(R<T> r) {
+        r.setCode(Code.OK.getCode());
+        r.setMessage(Code.OK.getMessage());
+        return r;
     }
 
     public Integer getCode() {
@@ -60,5 +126,36 @@ public class R<T> implements Serializable {
 
     private void setData(T data) {
         this.data = data;
+    }
+
+    public R<T> code(Integer code) {
+        this.code = code;
+        return this;
+    }
+
+    public R<T> message(String message) {
+        this.message = message;
+        return this;
+    }
+
+    public R<T> data(T data) {
+        this.data = data;
+        return this;
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
     }
 }

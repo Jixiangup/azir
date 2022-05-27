@@ -33,7 +33,7 @@ create table if not exists t_console_user
         primary key,
     account      varchar(64)                          not null comment '用户登录账号',
     username     varchar(128)                         not null comment '用户名称',
-    password     varchar(16)                          not null comment '登录密码',
+    password     varchar(32)                          not null comment '登录密码',
     gmt_create   datetime   default CURRENT_TIMESTAMP null comment '数据创建时间',
     gmt_modified datetime   default CURRENT_TIMESTAMP null comment '数据修改时间',
     deleted      tinyint(1) default 0                 null comment '数据是否逻辑删除'
