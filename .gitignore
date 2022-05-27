@@ -5,3 +5,6 @@
 # java
 *.class
 classes
+
+# azir
+conf/application.yaml
