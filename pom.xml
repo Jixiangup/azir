@@ -5,6 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>azir-common</module>
+        <module>azir-api</module>
+        <module>azir-dao</module>
     </modules>
 
     <parent>
@@ -27,12 +29,14 @@
         <hutool.version>5.7.17</hutool.version>
         <swagger.version>3.0.0</swagger.version>
         <mysql.driver.version>8.0.28</mysql.driver.version>
-        <forge.version>1.0.8.1</forge.version>
+        <forge.version>1.0.8.3</forge.version>
+        <java.jwt.version>9.21</java.jwt.version>
+        <snakeyaml.version>1.30</snakeyaml.version>
+        <druid.version>1.2.9</druid.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-
             <dependency>
                 <groupId>com.bnyte</groupId>
                 <artifactId>azir-common</artifactId>
@@ -43,6 +47,25 @@
                 <groupId>com.bnyte</groupId>
                 <artifactId>azir-dao</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>${java.jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${snakeyaml.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-starter -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
             </dependency>
 
             <dependency>
@@ -61,7 +84,7 @@
             <dependency>
                 <groupId>com.bnyte</groupId>
                 <artifactId>forge-spring-boot-starter</artifactId>
-                <version>1.0.8.1</version>
+                <version>${forge.version}</version>
             </dependency>
 
 

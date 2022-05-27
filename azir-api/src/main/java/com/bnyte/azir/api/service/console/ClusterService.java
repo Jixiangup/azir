@@ -1,4 +1,4 @@
-package com.bnyte.azir.service.console;
+package com.bnyte.azir.api.service.console;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.bnyte.azir.common.entity.console.Cluster;

@@ -1,4 +1,4 @@
-package com.bnyte.azir.configuration;
+package com.bnyte.azir.api.configuration;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;

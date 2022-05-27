@@ -12,6 +12,13 @@
     <artifactId>azir-common</artifactId>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.bnyte</groupId>
+            <artifactId>forge-spring-boot-starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -23,6 +30,21 @@
             <artifactId>springfox-boot-starter</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -1,8 +1,8 @@
-package com.bnyte.azir.advice;
+package com.bnyte.azir.api.advice;
 
 import com.bnyte.azir.common.web.response.Code;
 import com.bnyte.azir.common.web.response.R;
-import com.bnyte.azir.exception.RdosDefineException;
+import com.bnyte.azir.api.exception.RdosDefineException;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -23,7 +22,7 @@ import java.util.StringJoiner;
  * @author bnyte
  * @since 2022/5/27 18:22
  */
-@RestControllerAdvice(basePackages = "com.bnyte.azir.controller")
+@RestControllerAdvice(basePackages = "com.bnyte.azir.api.controller")
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {

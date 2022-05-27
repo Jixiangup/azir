@@ -1,5 +1,7 @@
 package com.bnyte.azir.common.web.response;
 
+import com.bnyte.forge.annotation.EventField;
+import com.bnyte.forge.annotation.TimestampField;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -29,12 +31,14 @@ public class R<T> implements Serializable {
     /**
      * 本次请求事件id
      */
+    @EventField
     @ApiModelProperty("事件id")
     private String requestId;
 
     /**
      * 请求时间戳
      */
+    @TimestampField
     @ApiModelProperty("请求时间戳")
     private Long timestamp;
 

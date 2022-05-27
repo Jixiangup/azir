@@ -1,8 +1,8 @@
-package com.bnyte.azir.service.console;
+package com.bnyte.azir.api.service.console;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.bnyte.azir.api.vo.user.LoginVO;
 import com.bnyte.azir.common.entity.console.User;
-import com.bnyte.azir.vo.user.LoginVO;
 
 /**
  * @author bnyte

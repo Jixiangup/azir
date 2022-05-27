@@ -1,4 +1,4 @@
-package com.bnyte.azir.vo.user;
+package com.bnyte.azir.api.vo.user;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

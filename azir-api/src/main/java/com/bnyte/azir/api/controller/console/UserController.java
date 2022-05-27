@@ -1,8 +1,8 @@
-package com.bnyte.azir.controller.console;
+package com.bnyte.azir.api.controller.console;
 
 import com.bnyte.azir.common.web.response.R;
-import com.bnyte.azir.service.console.UserService;
-import com.bnyte.azir.vo.user.LoginVO;
+import com.bnyte.azir.api.vo.user.LoginVO;
+import com.bnyte.azir.api.service.console.UserService;
 import com.bnyte.forge.annotation.APIHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RequestMapping("/user")
 @RestController
-@Api("用户控制器")
+@Api(tags = "用户控制器")
 public class UserController {
 
     @Autowired

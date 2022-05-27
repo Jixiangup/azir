@@ -1,4 +1,4 @@
-package com.bnyte.azir.mapper;
+package com.bnyte.azir.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bnyte.azir.common.entity.console.User;

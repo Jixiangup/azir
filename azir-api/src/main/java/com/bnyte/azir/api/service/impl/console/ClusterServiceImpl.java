@@ -1,9 +1,9 @@
-package com.bnyte.azir.service.impl.console;
+package com.bnyte.azir.api.service.impl.console;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bnyte.azir.common.entity.console.Cluster;
-import com.bnyte.azir.mapper.ClusterMapper;
-import com.bnyte.azir.service.console.ClusterService;
+import com.bnyte.azir.dao.mapper.ClusterMapper;
+import com.bnyte.azir.api.service.console.ClusterService;
 import org.springframework.stereotype.Service;
 
 /**

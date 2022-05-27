@@ -1,13 +1,13 @@
-package com.bnyte.azir.service.impl.console;
+package com.bnyte.azir.api.service.impl.console;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bnyte.azir.common.entity.console.User;
 import com.bnyte.azir.common.web.response.Code;
-import com.bnyte.azir.exception.RdosDefineException;
-import com.bnyte.azir.mapper.UserMapper;
-import com.bnyte.azir.service.console.UserService;
-import com.bnyte.azir.vo.user.LoginVO;
+import com.bnyte.azir.api.exception.RdosDefineException;
+import com.bnyte.azir.dao.mapper.UserMapper;
+import com.bnyte.azir.api.service.console.UserService;
+import com.bnyte.azir.api.vo.user.LoginVO;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
