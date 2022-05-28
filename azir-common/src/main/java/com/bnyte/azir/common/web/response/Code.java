@@ -19,7 +19,10 @@ public enum Code {
     USER_NOT_FOUND(13, "用户未找到"),
 
     // 校验异常
-    VALIDATION_ERROR(101, "%s")
+    VALIDATION_ERROR(101, "%s"),
+    TENANT_NOT_EXISTS(102, "租户不存在"),
+    TENANT_EN_NAME_EXISTS(103, "租户英文名称已经存在"),
+    TENANT_CN_NAME_EXISTS(104, "租户中文名称已经存在"),
     ;
 
     /**

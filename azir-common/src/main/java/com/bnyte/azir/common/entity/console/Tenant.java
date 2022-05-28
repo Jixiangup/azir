@@ -11,12 +11,12 @@ import com.bnyte.azir.common.entity.AutoId;
 public class Tenant extends AutoId {
 
     /**
-     * 集群中文名称
+     * 租户中文名称
      */
     private String cnName;
 
     /**
-     * 集群英文名称
+     * 租户英文名称
      */
     private String enName;
 

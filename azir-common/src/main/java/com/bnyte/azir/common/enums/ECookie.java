@@ -10,6 +10,8 @@ public enum ECookie {
      */
     X_ACCESS_TOKEN("X-ACCESS-TOKEN"),
     USERNAME("username"),
+    TENANT_NAME("tenant_name"),
+    TENANT_ID("tenant_id"),
     ;
 
     private String key;

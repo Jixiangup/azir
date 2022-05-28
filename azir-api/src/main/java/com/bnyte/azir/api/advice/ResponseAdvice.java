@@ -1,8 +1,11 @@
 package com.bnyte.azir.api.advice;
 
+import com.bnyte.azir.common.enums.ECookie;
 import com.bnyte.azir.common.exception.RdosDefineException;
+import com.bnyte.azir.common.util.CookieUtils;
 import com.bnyte.azir.common.web.response.Code;
 import com.bnyte.azir.common.web.response.R;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -24,6 +27,10 @@ import java.util.StringJoiner;
  */
 @RestControllerAdvice(basePackages = "com.bnyte.azir.api.controller")
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
+
+    @Autowired
+    CookieUtils cookieUtils;
+
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         return true;
@@ -55,6 +62,10 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
      */
     @ExceptionHandler
     R<Void> handleRdosDefineException(RdosDefineException e) {
+        if (e.getCode().getCode() > 9 || e.getCode().getCode() < 101) {
+            cookieUtils.remove(ECookie.X_ACCESS_TOKEN.getKey());
+            cookieUtils.remove(ECookie.USERNAME.getKey());
+        }
         return R.fail(e.getCode());
     }
 

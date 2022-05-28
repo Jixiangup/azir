@@ -2,6 +2,7 @@ package com.bnyte.azir.common.jwt;
 
 import com.bnyte.azir.common.entity.console.User;
 import com.bnyte.azir.common.exception.RdosDefineException;
+import com.bnyte.azir.common.util.CookieUtils;
 import com.bnyte.azir.common.util.JacksonUtils;
 import com.bnyte.azir.common.web.response.Code;
 import com.nimbusds.jose.*;
@@ -9,6 +10,8 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
@@ -22,7 +25,7 @@ import java.util.Objects;
  **/
 public class JWTHS256 {
 
-//    private static final Logger log = LoggerFactory.getLogger(JWTHS256.class);
+    private static final Logger log = LoggerFactory.getLogger(JWTHS256.class);
 
     /**
      * 创建秘钥
@@ -67,7 +70,7 @@ public class JWTHS256 {
              */
             return signedJWT.serialize();
         } catch (JOSEException e) {
-//            log.error("[{}] build token error for {}", JWTHS256.class.getSimpleName(), e.getMessage(), e);
+            log.error("[{}] build token error for {}", JWTHS256.class.getSimpleName(), e.getMessage(), e);
             throw new RdosDefineException(Code.FAIL);
         }
     }
@@ -80,7 +83,12 @@ public class JWTHS256 {
      */
     public static User checkToken(String token) {
         try {
-            SignedJWT jwt = SignedJWT.parse(token);
+            SignedJWT jwt = null;
+            try {
+                jwt = SignedJWT.parse(token);
+            } catch (Exception e) {
+                log.error("error token {}", e.getMessage(), e);
+            }
             JWSVerifier verifier = new MACVerifier(SECRET);
             //校验是否有效
             if (!jwt.verify(verifier)) {

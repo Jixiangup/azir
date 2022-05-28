@@ -3,7 +3,9 @@ package com.bnyte.azir.api.service.impl.console;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bnyte.azir.api.mapstruct.UserTransfer;
+import com.bnyte.azir.api.service.console.TenantService;
 import com.bnyte.azir.api.vo.user.CurrentUserVO;
+import com.bnyte.azir.common.entity.console.Tenant;
 import com.bnyte.azir.common.entity.console.User;
 import com.bnyte.azir.common.enums.ECookie;
 import com.bnyte.azir.common.exception.RdosDefineException;
@@ -19,6 +21,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -33,6 +36,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     HttpServletRequest request;
+
+    @Autowired
+    CookieUtils cookieUtils;
+
+    @Autowired
+    TenantService tenantService;
 
     @Override
     public void login(LoginVO loginVO) {
@@ -55,14 +64,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     private boolean isLogin() {
-        String token = CookieUtils.getValue(request, ECookie.X_ACCESS_TOKEN.getKey());
+        String token = cookieUtils.getValue(ECookie.X_ACCESS_TOKEN.getKey());
         if (StringUtils.hasText(token)) return Objects.nonNull(JWTHS256.checkToken(token));
         return false;
     }
 
     private void writeCookie(User authenticate, String token) {
-        CookieUtils.set(response, ECookie.USERNAME.getKey(), authenticate.getUsername(), true);
-        CookieUtils.set(response, ECookie.X_ACCESS_TOKEN.getKey(), token, true);
+        cookieUtils.set(ECookie.USERNAME.getKey(), authenticate.getUsername(), true);
+        cookieUtils.set(ECookie.X_ACCESS_TOKEN.getKey(), token, true);
     }
 
     @Override
@@ -76,11 +85,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public CurrentUserVO currentUser() {
-        User userForToken = CookieUtils.currentUser(request);
+        User userForToken = cookieUtils.currentUser();
         if (Objects.isNull(userForToken)) throw new RdosDefineException(Code.USER_NOT_FOUND);
+
+        // 校验当前租户是否还存在
+        String tenantId = cookieUtils.getValue(ECookie.TENANT_ID.getKey());
+        Tenant tenant = tenantService.getById(tenantId);
+        if (Objects.isNull(tenant)) {
+            cookieUtils.remove(ECookie.TENANT_ID.getKey());
+            cookieUtils.remove(ECookie.TENANT_NAME.getKey());
+        };
+
         User user = getById(userForToken.getId());
         return UserTransfer.INSTANCE.toCurrentUserVO(user);
     }
 
-
+    @Override
+    public User getById(Serializable id) {
+        return getOne(Wrappers.lambdaQuery(User.class).eq(User::getId, id).eq(User::getDeleted, false));
+    }
 }

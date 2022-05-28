@@ -8,12 +8,12 @@ import React, { useState } from 'react';
 import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form';
 import { useIntl, history, FormattedMessage, SelectLang, useModel } from 'umi';
 import Footer from '@/components/Footer';
-import { login } from '@/services/ant-design-pro/api';
-import { getFakeCaptcha } from '@/services/ant-design-pro/login';
+import { login } from '@/services/azir/api';
+import { getFakeCaptcha } from '@/services/azir/login';
+import md5 from 'js-md5';
 
 import styles from './index.less';
-import md5 from 'js-md5';
-import Cookies from 'js-cookie';
+
 
 const LoginMessage: React.FC<{
   content: string;
@@ -64,20 +64,12 @@ const Login: React.FC = () => {
         history.push(redirect || '/');
         return;
       }
-      console.log('code', ErrorCode.TOKEN_EXPIRED_ERROR);
-      console.log('code', ECookie.X_ACCESS_TOKEN);
-      debugger
-      if (msg.code == ErrorCode.TOKEN_EXPIRED_ERROR) {
-        debugger
-        // 清除鉴权token
-        Cookies.remove(ECookie.X_ACCESS_TOKEN)
-      }
 
-      console.log(msg);
       // 如果失败去设置用户错误信息
       setUserLoginState(msg);
       throw Error()
     } catch (error) {
+      // 清除鉴权token
       const defaultLoginFailureMessage = intl.formatMessage({
         id: 'pages.login.failure',
         defaultMessage: userLoginState.message,
