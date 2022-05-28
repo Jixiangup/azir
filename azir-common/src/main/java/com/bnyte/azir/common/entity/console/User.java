@@ -25,6 +25,11 @@ public class User extends AutoId {
      */
     private String password;
 
+    /**
+     * 头像
+     */
+    private String avatar;
+
     public String getAccount() {
         return account;
     }
@@ -47,5 +52,13 @@ public class User extends AutoId {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

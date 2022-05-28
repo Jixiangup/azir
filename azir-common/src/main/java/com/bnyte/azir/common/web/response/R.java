@@ -48,6 +48,12 @@ public class R<T> implements Serializable {
     @ApiModelProperty("响应结果对象")
     private T data;
 
+    /**
+     * 提供给前端确认请求是否成功
+     */
+    @ApiModelProperty("标记本次请求是否成功")
+    private Boolean status = false;
+
     private R() {
 
     }
@@ -92,6 +98,7 @@ public class R<T> implements Serializable {
         R<Void> voidR = new R<>();
         voidR.setCode(code.getCode());
         voidR.setMessage(code.getMessage());
+        voidR.setStatus(voidR.getCode().equals(Code.OK.getCode()));
         return voidR;
     }
 
@@ -99,12 +106,14 @@ public class R<T> implements Serializable {
         R<Void> voidR = new R<>();
         voidR.setCode(code.getCode());
         voidR.setMessage(String.format(code.getMessage(), message));
+        voidR.setStatus(voidR.getCode().equals(Code.OK.getCode()));
         return voidR;
     }
 
     private static <T> R<T> build(R<T> r) {
         r.setCode(Code.OK.getCode());
         r.setMessage(Code.OK.getMessage());
+        r.setStatus(r.getCode().equals(Code.OK.getCode()));
         return r;
     }
 
@@ -161,5 +170,13 @@ public class R<T> implements Serializable {
 
     public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 }

@@ -2,6 +2,8 @@ package com.bnyte.azir.api.service.impl.console;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.bnyte.azir.api.mapstruct.UserTransfer;
+import com.bnyte.azir.api.vo.user.CurrentUserVO;
 import com.bnyte.azir.common.entity.console.User;
 import com.bnyte.azir.common.enums.ECookie;
 import com.bnyte.azir.common.exception.RdosDefineException;
@@ -70,6 +72,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                         .eq(User::getAccount, account)
                         .eq(User::getPassword, password)
                         .eq(User::getDeleted, false));
+    }
+
+    @Override
+    public CurrentUserVO currentUser() {
+        User userForToken = CookieUtils.currentUser(request);
+        if (Objects.isNull(userForToken)) throw new RdosDefineException(Code.USER_NOT_FOUND);
+        User user = getById(userForToken.getId());
+        return UserTransfer.INSTANCE.toCurrentUserVO(user);
     }
 
 

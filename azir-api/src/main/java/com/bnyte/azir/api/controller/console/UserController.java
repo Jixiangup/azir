@@ -1,5 +1,6 @@
 package com.bnyte.azir.api.controller.console;
 
+import com.bnyte.azir.api.vo.user.CurrentUserVO;
 import com.bnyte.azir.common.web.response.R;
 import com.bnyte.azir.api.vo.user.LoginVO;
 import com.bnyte.azir.api.service.console.UserService;
@@ -8,10 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author bnyte
@@ -31,6 +29,13 @@ public class UserController {
     R<Void> login(@RequestBody @Validated LoginVO loginVO) {
         userService.login(loginVO);
         return R.empty();
+    }
+
+    @APIHelper
+    @ApiOperation("当前用户信息")
+    @GetMapping("/current_user")
+    R<CurrentUserVO> currentUser() {
+        return R.ok(userService.currentUser());
     }
 
 }

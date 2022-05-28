@@ -1,8 +1,13 @@
 package com.bnyte.azir.common.util;
 
+import com.bnyte.azir.common.entity.console.User;
+import com.bnyte.azir.common.enums.ECookie;
+import com.bnyte.azir.common.jwt.JWTHS256;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 /**
  * @author bnyte
@@ -95,5 +100,10 @@ public class CookieUtils {
         if (cookie != null) {
             set(response, key, "", null, COOKIE_PATH, 0, true);
         }
+    }
+
+    public static User currentUser(HttpServletRequest request) {
+        String token = CookieUtils.getValue(request, ECookie.X_ACCESS_TOKEN.getKey());
+        return JWTHS256.checkToken(token);
     }
 }
