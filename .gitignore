@@ -5,6 +5,8 @@
 # java
 *.class
 classes
+generated-sources
+generated-test-sources
 
 # azir
 conf/application.yaml
