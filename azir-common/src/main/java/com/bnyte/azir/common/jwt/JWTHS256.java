@@ -83,12 +83,7 @@ public class JWTHS256 {
      */
     public static User checkToken(String token) {
         try {
-            SignedJWT jwt = null;
-            try {
-                jwt = SignedJWT.parse(token);
-            } catch (Exception e) {
-                log.error("error token {}", e.getMessage(), e);
-            }
+            SignedJWT jwt = SignedJWT.parse(token);
             JWSVerifier verifier = new MACVerifier(SECRET);
             //校验是否有效
             if (!jwt.verify(verifier)) {

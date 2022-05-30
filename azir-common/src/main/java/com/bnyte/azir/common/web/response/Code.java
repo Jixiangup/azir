@@ -23,6 +23,7 @@ public enum Code {
     TENANT_NOT_EXISTS(102, "租户不存在"),
     TENANT_EN_NAME_EXISTS(103, "租户英文名称已经存在"),
     TENANT_CN_NAME_EXISTS(104, "租户中文名称已经存在"),
+    NO_TENANT_SELECTED(105, "没有租户选择"),
     ;
 
     /**

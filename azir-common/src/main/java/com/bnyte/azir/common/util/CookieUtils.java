@@ -24,7 +24,10 @@ public class CookieUtils {
     private static final String COOKIE_PATH = "/";
 
     @Autowired
-    APIHelperActuator helperActuator;
+    HttpServletRequest request;
+
+    @Autowired
+    HttpServletResponse response;
 
     /**
      * 保存
@@ -56,7 +59,7 @@ public class CookieUtils {
         cookie.setPath(path);
         cookie.setMaxAge(maxAge);
         cookie.setHttpOnly(isHttpOnly);
-        helperActuator.getResponse().addCookie(cookie);
+        response.addCookie(cookie);
     }
 
     /**
@@ -80,7 +83,7 @@ public class CookieUtils {
      * @return 返回保存的cookie对象
      */
     private Cookie get(String key) {
-        Cookie[] arr_cookie = helperActuator.getRequest().getCookies();
+        Cookie[] arr_cookie = request.getCookies();
         if (arr_cookie != null && arr_cookie.length > 0) {
             for (Cookie cookie : arr_cookie) {
                 if (cookie.getName().equals(key)) {

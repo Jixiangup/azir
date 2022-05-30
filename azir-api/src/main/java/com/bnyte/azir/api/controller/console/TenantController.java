@@ -16,7 +16,7 @@ import java.util.List;
  * @author bnyte
  * @since 2022/5/28 18:22
  */
-@Api("租户")
+@Api(tags = "租户控制器")
 @RestController
 @RequestMapping("/tenant")
 public class TenantController {
