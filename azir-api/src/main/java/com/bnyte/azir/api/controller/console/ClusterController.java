@@ -7,6 +7,7 @@ import com.bnyte.forge.annotation.APIHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class ClusterController {
     @APIHelper
     @ApiOperation("创建集群")
     @PostMapping("/create")
-    R<Void> create(@RequestBody ClusterVO clusterVO) {
+    R<Void> create(@RequestBody @Validated ClusterVO clusterVO) {
         clusterService.create(clusterVO);
         return R.empty();
     }
@@ -36,6 +37,22 @@ public class ClusterController {
     @GetMapping("/list")
     R<List<ClusterVO>> list() {
         return R.ok(clusterService.listByTenant());
+    }
+
+    @APIHelper
+    @ApiOperation("删除集群")
+    @DeleteMapping("/delete/{id}")
+    R<Void> delete(@PathVariable("id") Long id) {
+        clusterService.deleteById(id);
+        return R.empty();
+    }
+
+    @APIHelper
+    @ApiOperation("更新集群")
+    @PutMapping("/update")
+    R<Void> update(@RequestBody ClusterVO clusterVO) {
+        clusterService.updateCluster(clusterVO);
+        return R.empty();
     }
 
 }

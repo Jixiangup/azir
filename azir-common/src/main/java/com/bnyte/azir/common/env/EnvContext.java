@@ -1,5 +1,6 @@
 package com.bnyte.azir.common.env;
 
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 import com.bnyte.azir.common.analyze.YAMLPropertySourceAnalyze;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.util.StringUtils;
 
 /**
  * @author bnyte
@@ -26,6 +28,9 @@ public class EnvContext implements InitializingBean {
 
     @Autowired
     ServerProperties serverProperties;
+
+    @Autowired
+    MybatisPlusProperties mybatisPlusProperties;
 
     /**
      * MySQL数据源驱动
@@ -67,6 +72,12 @@ public class EnvContext implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         // setting server info
         customizeServerProperties();
+
+        // setting mybatis plus info
+        customizeMyBatisPlusProperties();
+    }
+
+    private void customizeMyBatisPlusProperties() {
     }
 
     private void customizeServerProperties() {

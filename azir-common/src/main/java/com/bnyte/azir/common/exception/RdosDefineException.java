@@ -15,6 +15,11 @@ public class RdosDefineException extends RuntimeException {
         this.code = code;
     }
 
+    public RdosDefineException(String message, Code code) {
+        super(message);
+        this.code = code;
+    }
+
     public Code getCode() {
         return code;
     }

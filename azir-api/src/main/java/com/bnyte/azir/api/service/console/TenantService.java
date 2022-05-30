@@ -22,4 +22,8 @@ public interface TenantService extends IService<Tenant> {
     Tenant queryByEnName(String enName);
 
     Tenant queryByCnName(String cnName);
+
+    void updateTenant(TenantVO tenantVO);
+
+    void delete(Long id);
 }

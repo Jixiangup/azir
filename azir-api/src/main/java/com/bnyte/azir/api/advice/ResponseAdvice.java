@@ -66,7 +66,19 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
             cookieUtils.remove(ECookie.X_ACCESS_TOKEN.getKey());
             cookieUtils.remove(ECookie.USERNAME.getKey());
         }
+        if (e.getCode().getCode().equals(Code.VALIDATION_ERROR.getCode())) return R.fail(e.getMessage(), e.getCode());
         return R.fail(e.getCode());
+    }
+
+//
+    /**
+     * 参数校验异常处理
+     * @param e 异常响应
+     * @return 响应结果
+     */
+    @ExceptionHandler
+    R<Void> handleIllegalArgumentException(IllegalArgumentException e) {
+        return R.fail(e.getMessage(), Code.VALIDATION_ERROR);
     }
 
 

@@ -47,5 +47,21 @@ public class TenantController {
         return R.empty();
     }
 
+    @APIHelper
+    @PutMapping("/update")
+    @ApiOperation("更新租户")
+    R<Void> update(@RequestBody @Validated TenantVO tenantVO) {
+        tenantService.updateTenant(tenantVO);
+        return R.empty();
+    }
+
+    @APIHelper
+    @DeleteMapping("/delete/{id}")
+    @ApiOperation("通过ID删除租户")
+    R<Void> deleteById(@PathVariable("id") Long id) {
+        tenantService.delete(id);
+        return R.empty();
+    }
+
 
 }

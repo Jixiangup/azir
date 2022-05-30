@@ -14,4 +14,12 @@ public interface ClusterService extends IService<Cluster> {
     void create(ClusterVO clusterVO);
 
     List<ClusterVO> listByTenant();
+
+    void deleteForTenantId(Long id);
+
+    List<Cluster> listByTenantId(Long tenantId);
+
+    void deleteById(Long id);
+
+    void updateCluster(ClusterVO clusterVO);
 }

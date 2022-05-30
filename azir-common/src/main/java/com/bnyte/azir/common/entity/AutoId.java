@@ -2,6 +2,7 @@ package com.bnyte.azir.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 
 import java.util.Date;
 
@@ -30,7 +31,12 @@ public class AutoId {
     /**
      * 是否删除
      */
+    @TableLogic
     private Boolean deleted;
+
+    public void update() {
+        this.setGmtModified(new Date());
+    }
 
     public Long getId() {
         return id;

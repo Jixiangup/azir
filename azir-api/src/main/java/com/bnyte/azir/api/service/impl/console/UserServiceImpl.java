@@ -79,8 +79,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return getOne(
                 Wrappers.lambdaQuery(User.class)
                         .eq(User::getAccount, account)
-                        .eq(User::getPassword, password)
-                        .eq(User::getDeleted, false));
+                        .eq(User::getPassword, password));
     }
 
     @Override
@@ -98,10 +97,5 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         User user = getById(userForToken.getId());
         return UserTransfer.INSTANCE.toCurrentUserVO(user);
-    }
-
-    @Override
-    public User getById(Serializable id) {
-        return getOne(Wrappers.lambdaQuery(User.class).eq(User::getId, id).eq(User::getDeleted, false));
     }
 }

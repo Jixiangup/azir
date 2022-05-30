@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bnyte.azir.api.mapstruct.ClusterTransfer;
 import com.bnyte.azir.api.vo.cluster.ClusterVO;
 import com.bnyte.azir.common.entity.console.Cluster;
+import com.bnyte.azir.common.entity.console.Tenant;
 import com.bnyte.azir.common.enums.ECookie;
 import com.bnyte.azir.common.exception.RdosDefineException;
 import com.bnyte.azir.common.util.CookieUtils;
@@ -13,10 +14,15 @@ import com.bnyte.azir.dao.mapper.ClusterMapper;
 import com.bnyte.azir.api.service.console.ClusterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author bnyte
@@ -43,9 +49,45 @@ public class ClusterServiceImpl extends ServiceImpl<ClusterMapper, Cluster> impl
         if (!StringUtils.hasText(tenantId)) throw new RdosDefineException(Code.NO_TENANT_SELECTED);
         List<Cluster> clusters = list(
                 Wrappers.lambdaQuery(Cluster.class)
-                        .eq(Cluster::getDeleted, false)
                         .eq(Cluster::getTenantId, tenantId)
         );
         return ClusterTransfer.INSTANCE.toVOS(clusters);
+    }
+
+    @Override
+    @Transactional
+    public void deleteForTenantId(Long id) {
+
+        List<Cluster> clusters = listByTenantId(id);
+        if (CollectionUtils.isEmpty(clusters)) return;
+
+        // 后续这里可能会涉及到删除组件
+
+        removeByIds(clusters.stream().map(Cluster::getId).collect(Collectors.toList()));
+
+    }
+
+    @Override
+    public List<Cluster> listByTenantId(Long tenantId) {
+        return list(
+                        Wrappers.lambdaQuery(Cluster.class)
+                                .eq(Cluster::getTenantId, tenantId));
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        // 这个位置未来会校验是否包含组件
+
+        // 删除集群
+        removeById(id);
+    }
+
+    @Override
+    public void updateCluster(ClusterVO clusterVO) {
+        Assert.notNull(clusterVO.getId(), "集群id不能为空");
+
+        Cluster cluster = ClusterTransfer.INSTANCE.toDomain(clusterVO);
+        cluster.update();
+        updateById(cluster);
     }
 }

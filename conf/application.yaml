@@ -7,7 +7,7 @@ server:
 # 数据源配置
 datasource:
   mysql:
-    url: jdbc:mysql://127.0.0.1:3306/azir
+    url: jdbc:mysql://121.40.209.124:6033/azir
     username: root
-    password: root
+    password: 5c2891d9-45fb-4240-9f0e-50222099d9bd
     driver-class-name: com.mysql.cj.jdbc.Driver

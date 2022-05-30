@@ -31,8 +31,8 @@ public class SwaggerConfiguration {
 
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
-                .title("bnyte单点登录项目接口文档")
-                .description("bnyte单点登录项目，主要做所有旗下项目单点登录用")
+                .title("Azir项目接口文档")
+                .description("Azir分布式任务调度中台")
                 .contact(new Contact("bnyte", "https://blog.bnyte.com", "bnytezz@gmail.com"))
                 .version("1.0.0")
                 .build();

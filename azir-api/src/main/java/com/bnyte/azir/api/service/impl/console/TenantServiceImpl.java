@@ -2,7 +2,9 @@ package com.bnyte.azir.api.service.impl.console;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.bnyte.azir.api.constant.MessageConstant;
 import com.bnyte.azir.api.mapstruct.TenantTransfer;
+import com.bnyte.azir.api.service.console.ClusterService;
 import com.bnyte.azir.api.service.console.TenantService;
 import com.bnyte.azir.api.vo.tenant.TenantVO;
 import com.bnyte.azir.common.entity.console.Tenant;
@@ -14,6 +16,8 @@ import com.bnyte.azir.common.web.response.Code;
 import com.bnyte.azir.dao.mapper.TenantMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,17 +31,22 @@ import java.util.Objects;
 public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> implements TenantService {
 
     @Autowired
+    ClusterService clusterService;
+
+    @Autowired
     CookieUtils cookieUtils;
 
     @Override
     public List<TenantVO> tenants() {
         User user = cookieUtils.currentUser();
-        List<Tenant> tenants = list(
+        return TenantTransfer.INSTANCE.toTenantVOS(tenantsByUserId(user.getId()));
+    }
+
+    private List<Tenant> tenantsByUserId(Long id) {
+        return list(
                 Wrappers.lambdaQuery(Tenant.class)
-                        .eq(Tenant::getDeleted, false)
-                        .eq(Tenant::getUserId, user.getId())
+                        .eq(Tenant::getUserId, id)
         );
-        return TenantTransfer.INSTANCE.toTenantVOS(tenants);
     }
 
     @Override
@@ -59,6 +68,10 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
     }
 
     private void createPreCheck(TenantVO tenantVO) {
+        assertName(tenantVO);
+    }
+
+    private void assertName(TenantVO tenantVO) {
         if (Objects.nonNull(queryByCnName(tenantVO.getCnName()))) {
             throw new RdosDefineException(Code.TENANT_CN_NAME_EXISTS);
         }
@@ -70,17 +83,37 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
 
     @Override
     public Tenant queryByEnName(String enName) {
-        return getOne(Wrappers.lambdaQuery(Tenant.class).eq(Tenant::getDeleted, false).eq(Tenant::getEnName, enName));
+        return getOne(Wrappers.lambdaQuery(Tenant.class).eq(Tenant::getEnName, enName));
     }
 
     @Override
     public Tenant queryByCnName(String cnName) {
-        return getOne(Wrappers.lambdaQuery(Tenant.class).eq(Tenant::getDeleted, false).eq(Tenant::getCnName, cnName));
+        return getOne(Wrappers.lambdaQuery(Tenant.class).eq(Tenant::getCnName, cnName));
     }
 
+    @Override
+    public void updateTenant(TenantVO tenantVO) {
+        Assert.notNull(tenantVO.getId(), MessageConstant.ID_CANNOT_BE_EMPTY);
+
+        assertName(tenantVO);
+
+        Tenant tenant = TenantTransfer.INSTANCE.toTenant(tenantVO);
+        tenant.update();
+
+        updateById(tenant);
+    }
 
     @Override
-    public Tenant getById(Serializable id) {
-        return getOne(Wrappers.lambdaQuery(Tenant.class).eq(Tenant::getId, id).eq(Tenant::getDeleted, false));
+    @Transactional
+    public void delete(Long id) {
+        Tenant tenant = getById(id);
+        if (Objects.isNull(tenant)) return;
+
+        // 查询先删除集群
+        clusterService.deleteForTenantId(id);
+
+        // 删除租户
+        removeById(id);
+
     }
 }
