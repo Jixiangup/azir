@@ -33,9 +33,9 @@ public class JWTHS256 {
     private static final byte[] SECRET = Arrays.copyOf("EY0h0j0mHoyxGoigoYgn".getBytes(StandardCharsets.UTF_8), 256);
 
     /**
-     * 过期时间三十分钟
+     * 过期时间三十天
      */
-    private static final long EXPIRE_TIME = 1000 * 60 * 30;
+    private static final long EXPIRE_TIME = 1000L * 60 * 60 * 24 * 30;
 
 
     /**

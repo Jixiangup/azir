@@ -16,6 +16,9 @@ declare namespace API {
     parentId?: number;
     menu?: string;
     icon?: string;
+    gmtCreate?: string;
+    path?: string;
+    weights?: weights;
     children?: Menu[];
   };
 
