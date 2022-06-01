@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { DownOutlined, EllipsisOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import type { ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { Button, Tag, Tooltip } from 'antd';
+import { Button, Tooltip } from 'antd';
 import { history } from 'umi';
 
 const path403 = "/403"

@@ -34,10 +34,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
         List<MenuVO> menuVOS = MenuTransfer.INSTANCE.toVOS(menus);
         // 获取所有一级目录
-         return menuVOS.stream()
-                .filter(menuVO -> menuVO.getParentId().equals(ConfigConstant.menuRootId))
-                .peek(menuVO -> menuVO.setChildren(recursivelyQueryChildren(menuVO, menuVOS)))
-                .collect(Collectors.toList());
+        return menuVOS.stream()
+            .filter(menuVO -> menuVO.getParentId().equals(ConfigConstant.menuRootId))
+            .peek(menuVO -> menuVO.setChildren(recursivelyQueryChildren(menuVO, menuVOS)))
+            .collect(Collectors.toList());
     }
 
     @Override
