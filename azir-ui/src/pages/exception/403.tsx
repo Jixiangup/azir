@@ -2,11 +2,11 @@ import { Button, Result } from 'antd';
 import React from 'react';
 import { history } from 'umi';
 
-const NoFoundPage: React.FC = () => (
+const PermissionDenied: React.FC = () => (
   <Result
-    status="404"
-    title="404"
-    subTitle="对不起, 当前页面不存在."
+    status="403"
+    title="403"
+    subTitle="对不起您暂时没有权限访问."
     extra={
       <Button type="primary" onClick={() => history.push('/')}>
         回到首页
@@ -15,4 +15,4 @@ const NoFoundPage: React.FC = () => (
   />
 );
 
-export default NoFoundPage;
+export default PermissionDenied;

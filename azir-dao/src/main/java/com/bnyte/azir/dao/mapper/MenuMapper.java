@@ -12,4 +12,6 @@ import java.util.List;
  */
 public interface MenuMapper extends BaseMapper<Menu> {
     List<Menu> selectMenus(@Param("userId") Long id);
+
+    Menu selectAccess(@Param("path") String path, @Param("userId") Long id);
 }

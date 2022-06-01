@@ -14,8 +14,9 @@ declare namespace API {
   /** 路由 */
   type Menu = {
     parentId?: number;
-    menuName?: string;
+    menu?: string;
     icon?: string;
+    children?: Menu[];
   };
 
   type CurrentUser = {

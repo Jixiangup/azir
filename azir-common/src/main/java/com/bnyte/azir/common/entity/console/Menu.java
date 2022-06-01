@@ -2,9 +2,6 @@ package com.bnyte.azir.common.entity.console;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.bnyte.azir.common.entity.AutoId;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiOperation;
 
 /**
  * @author bnyte
@@ -21,12 +18,22 @@ public class Menu extends AutoId {
     /**
      * 菜单名称
      */
-    private String menuName;
+    private String name;
 
     /**
      * 菜单icon
      */
     private String icon;
+
+    /**
+     * 路由路径
+     */
+    private String path;
+
+    /**
+     * 路由权重
+     */
+    private Integer weights;
 
     public Long getParentId() {
         return parentId;
@@ -36,12 +43,12 @@ public class Menu extends AutoId {
         this.parentId = parentId;
     }
 
-    public String getMenuName() {
-        return menuName;
+    public String getName() {
+        return name;
     }
 
-    public void setMenuName(String menuName) {
-        this.menuName = menuName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getIcon() {
@@ -50,5 +57,21 @@ public class Menu extends AutoId {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public Integer getWeights() {
+        return weights;
+    }
+
+    public void setWeights(Integer weights) {
+        this.weights = weights;
     }
 }

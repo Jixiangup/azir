@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,6 +31,13 @@ public class MenuController {
     @ApiOperation("菜单路由列表")
     R<List<MenuVO>> list() {
         return R.ok(menuService.menus());
+    }
+
+    @APIHelper
+    @GetMapping("/allow_access")
+    @ApiOperation("是否允许访问当前路由")
+    R<Boolean> allowAccess(@RequestParam("path") String path) {
+        return R.ok(menuService.allowAccess(path));
     }
 
 }

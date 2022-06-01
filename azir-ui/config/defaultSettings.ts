@@ -14,7 +14,10 @@ const Settings: LayoutSettings & {
   "logo": "https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg",
   "headerHeight": 48,
   "splitMenus": false,
-  "title": "Azir Schedule"
+  "title": "Azir Schedule",
+  "menu": {
+    locale: false
+  }
 };
 
 export default Settings;

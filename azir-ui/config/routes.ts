@@ -1,5 +1,9 @@
 ﻿export default [
   {
+    path: '/403',
+    component: './exception/403',
+  },
+  {
     path: '/user',
     layout: false,
     routes: [
@@ -20,28 +24,18 @@
     component: './Welcome',
   },
   {
-    path: '/admin',
-    name: 'admin',
-    icon: 'crown',
-    access: 'canAdmin',
-    component: './Admin',
+    path: '/menu',
+    name: '目录管理',
+    icon: 'smile',
+    component: './menu',
     routes: [
       {
-        path: '/admin/sub-page',
-        name: 'sub-page',
+        path: '/menu/lsit',
+        name: '目录列表',
         icon: 'smile',
-        component: './Welcome',
-      },
-      {
-        component: './404',
-      },
-    ],
-  },
-  {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './TableList',
+        component: './menu',
+      }
+    ]
   },
   {
     path: '/',

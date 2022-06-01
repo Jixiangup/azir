@@ -45,6 +45,16 @@ const Login: React.FC = () => {
     }
   };
 
+  const fetchMenus = async () => {
+    const menuResp = await initialState?.fetchMenus?.();
+    if (menuResp && menuResp.status) {
+      await setInitialState((s) => ({
+        ...s,
+        menus: menuResp.data
+      }));
+    }
+  };
+
   const handleSubmit = async (values: API.LoginParams) => {
     try {
       values.password = md5(values.password);
@@ -56,6 +66,8 @@ const Login: React.FC = () => {
           defaultMessage: '登录成功！',
         });
         message.success(defaultLoginSuccessMessage);
+        // 获取路由列表
+        await fetchMenus();
         await fetchUserInfo();
         /** 此方法会跳转到 redirect 参数所在的位置 */
         if (!history) return;

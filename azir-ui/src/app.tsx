@@ -1,17 +1,26 @@
 import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
 import { SettingDrawer } from '@ant-design/pro-layout';
 import { PageLoading } from '@ant-design/pro-layout';
-import { RunTimeLayoutConfig } from 'umi';
+import type { RunTimeLayoutConfig } from 'umi';
 import { history, Link } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import { currentUser as queryCurrentUser } from './services/azir/api';
-import { BookOutlined, LinkOutlined } from '@ant-design/icons';
+import { BookOutlined, LinkOutlined, SlidersOutlined } from '@ant-design/icons';
 import defaultSettings from '../config/defaultSettings';
-
+import { list as queryMenus } from './services/azir/menu';
+import { message } from 'antd';
+import type { MenuDataItem } from './.umi/plugin-antd-icon-config/app';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import SmileOutlined from '@ant-design/icons/SmileOutlined';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
+
+const IconMap = {
+  smile: <SmileOutlined />,
+  SlidersOutlined: <SlidersOutlined />,
+};
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
@@ -24,9 +33,19 @@ export const initialStateConfig = {
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
   currentUser?: API.CurrentUser;
+  menus?: API.Menu[];
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
+  fetchMenus?: () => Promise<API.R<API.Menu[]> | undefined>;
 }> {
+  const fetchMenus = async () => {
+    const menuResponse = await queryMenus();
+    if (!menuResponse?.status) {
+      new Error()
+      message.error(menuResponse?.message)
+    }
+    return menuResponse;
+  }
   const fetchUserInfo = async () => {
     try {
       const msg = await queryCurrentUser();
@@ -36,23 +55,42 @@ export async function getInitialState(): Promise<{
     }
     return undefined;
   };
+  const menuResponse = await fetchMenus();
   // 如果不是登录页面，执行
   if (history.location.pathname !== loginPath) {
     const currentUser = await fetchUserInfo();
     return {
       fetchUserInfo,
+      fetchMenus,
       currentUser,
+      menus: menuResponse.data,
       settings: defaultSettings,
     };
   }
   return {
     fetchUserInfo,
+    menus: menuResponse.data,
     settings: defaultSettings,
+    fetchMenus,
   };
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
+
+  const handlerMenu = (backendMenus: API.Menu[] | undefined): MenuDataItem[] => {
+    if (backendMenus === undefined || !backendMenus) {
+      return [];
+    }
+    return backendMenus.map((item) => {
+      const data: MenuDataItem = {
+        ...item,
+        icon: item.icon && IconMap[item.icon as string],
+      }
+      return data;
+    })
+  };
+
   return {
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
@@ -80,6 +118,11 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         ]
       : [],
     menuHeaderRender: undefined,
+    // 自定义路由
+    menuDataRender: () => {
+      const menuDataList = handlerMenu(initialState?.menus)
+      return menuDataList;
+    },
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
     // 增加一个 loading 的状态
@@ -94,7 +137,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
               enableDarkTheme
               settings={initialState?.settings}
               onSettingChange={(settings) => {
-                setInitialState((preInitialState) => ({
+                setInitialState((preInitialState: any) => ({
                   ...preInitialState,
                   settings,
                 }));

@@ -41,7 +41,6 @@ const GlobalHeaderRight: React.FC = () => {
 
   useEffect(() => {
     refreshTenants();
-    return () => {};
   }, []);
 
   if (!initialState || !initialState.settings) {

@@ -5,13 +5,36 @@
     <sql id="currentMapperTableName">t_console_menu</sql>
 
     <sql id="menuInfo">
-        id, parent_id, menu_name, icon, gmt_create, gmt_modified, deleted
+        id, parent_id, name, icon, path, weights, gmt_create, gmt_modified, deleted
+    </sql>
+
+    <sql id="menuInfoJoin">
+        menu.id, menu.parent_id, menu.name, menu.icon, menu.path, menu.weights, menu.gmt_create, menu.gmt_modified, menu.deleted
     </sql>
 
     <select id="selectMenus" resultType="com.bnyte.azir.common.entity.console.Menu">
         select
-            <include refid="menuInfo" />
-        from <include refid="currentMapperTableName" />
-        where deleted != 1;
+            <include refid="menuInfoJoin" />
+        from t_role_user tru
+        left join t_console_user tcu on tru.user_id = tcu.id
+        left join t_console_role tcr on tru.role_id = tcr.id
+        left join t_role_competence trc on trc.role_id = tcr.id
+        left join t_console_competence tcc on trc.competence_id = tcc.id
+        left join t_console_menu menu on menu.id = tcc.menu_id
+        where tcu.id = #{userId}
+        order by menu.weights;
+    </select>
+
+    <select id="selectAccess" resultType="com.bnyte.azir.common.entity.console.Menu">
+        select
+            <include refid="menuInfoJoin" />
+        from t_role_user tru
+        left join t_console_user tcu on tru.user_id = tcu.id
+        left join t_console_role tcr on tru.role_id = tcr.id
+        left join t_role_competence trc on trc.role_id = tcr.id
+        left join t_console_competence tcc on trc.competence_id = tcc.id
+        left join t_console_menu menu on menu.id = tcc.menu_id
+        where tcu.id = #{userId} and menu.path = #{path}
+        limit 0, 1;
     </select>
 </mapper>
