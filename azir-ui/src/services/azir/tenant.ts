@@ -14,7 +14,7 @@ export const selectTenant = async (tenantId: number) => {
 };
 
 /** 创建租户 */
-export const create = async (options?: { [key: string]: any }) => {
+export const create = async (options?: Record<string, any>) => {
     return request(`/azir/tenant/create`, {
         method: 'POST',
         data: {

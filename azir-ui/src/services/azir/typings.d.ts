@@ -2,6 +2,22 @@
 /* eslint-disable */
 
 declare namespace API {
+
+  /** 响应结果 */
+  type R<T> = {
+    code?: number;
+    message?: string;
+    status?: boolean;
+    data?: T;
+  };
+
+  /** 路由 */
+  type Menu = {
+    parentId?: number;
+    menuName?: string;
+    icon?: string;
+  };
+
   type CurrentUser = {
     username?: string;
     avatar?: string;

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bnyte.azir.dao.mapper.MenuMapper">
+
+    <sql id="currentMapperTableName">t_console_menu</sql>
+
+    <sql id="menuInfo">
+        id, parent_id, menu_name, icon, gmt_create, gmt_modified, deleted
+    </sql>
+
+    <select id="selectMenus" resultType="com.bnyte.azir.common.entity.console.Menu">
+        select
+            <include refid="menuInfo" />
+        from <include refid="currentMapperTableName" />
+        where deleted != 1;
+    </select>
+</mapper>

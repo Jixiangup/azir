@@ -33,7 +33,7 @@ public class TenantController {
 
     @APIHelper
     @GetMapping("/select_tenant/{tenant_id}")
-    @ApiOperation("用户下的租户列表")
+    @ApiOperation("切换租户")
     R<Void> selectTenant(@PathVariable("tenant_id") Long tenantId) {
         tenantService.selectTenant(tenantId);
         return R.empty();
