@@ -15,4 +15,6 @@ public interface MenuService extends IService<Menu> {
     List<MenuVO> menus();
 
     Boolean allowAccess(String path);
+
+    Boolean delete(Long id);
 }

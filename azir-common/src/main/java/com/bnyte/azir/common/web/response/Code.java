@@ -15,8 +15,9 @@ public enum Code {
     // 用户、权限 10 - 100
     AUTHENTICATION_ERROR(10, "用户鉴权失败"),
     TOKEN_EXPIRED_ERROR(11, "token令牌过期"),
-    THE_USER_DOES_NOT_EXIST_ERROR(12, "用户鉴权失败"),
+    THE_USER_DOES_NOT_EXIST_ERROR(12, "用户不存在"),
     USER_NOT_FOUND(13, "用户未找到"),
+    PERMISSION_DENIED(14, "没有找到对应权限"),
 
     // 校验异常
     VALIDATION_ERROR(101, "%s"),

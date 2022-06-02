@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bnyte.azir.dao.mapper.CompetenceMapper">
+
+    <sql id="info">
+        id, menu_id, gmt_create, gmt_modified, deleted
+    </sql>
+
+    <sql id="infoJoin">
+        competence.id, competence.menu_id, competence.gmt_create, competence.gmt_modified, competence.deleted
+    </sql>
+
+    <sql id="tableName">t_console_competence</sql>
+
+    <select id="selectCompetence" resultType="com.bnyte.azir.common.dto.CompetenceDTO">
+        select
+            <include refid="infoJoin" />, tcu.id userId, tcr.id roleId
+        from t_console_competence competence
+        left join t_role_competence trc on trc.competence_id = competence.id
+        left join t_console_role tcr on tcr.id = trc.role_id
+        left join t_role_user tru on tru.role_id = tcr.id
+        left join t_console_user tcu on tcu.id = tru.user_id
+        left join t_console_menu tcm on tcm.id = competence.menu_id
+        where competence.menu_id = #{menuId} and user_id = #{userId}
+    </select>
+</mapper>

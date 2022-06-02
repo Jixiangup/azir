@@ -3,10 +3,14 @@ package com.bnyte.azir.api.service.impl.console;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bnyte.azir.api.constant.ConfigConstant;
 import com.bnyte.azir.api.mapstruct.MenuTransfer;
+import com.bnyte.azir.api.service.console.CompetenceService;
 import com.bnyte.azir.api.service.console.MenuService;
 import com.bnyte.azir.api.vo.menu.MenuVO;
+import com.bnyte.azir.common.dto.CompetenceDTO;
 import com.bnyte.azir.common.entity.console.Menu;
+import com.bnyte.azir.common.exception.RdosDefineException;
 import com.bnyte.azir.common.util.CookieUtils;
+import com.bnyte.azir.common.web.response.Code;
 import com.bnyte.azir.dao.mapper.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +32,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Autowired
     CookieUtils cookieUtils;
 
+    @Autowired
+    CompetenceService competenceService;
+
     @Override
     public List<MenuVO> menus() {
         List<Menu> menus = menuMapper.selectMenus(cookieUtils.currentUser().getId());
@@ -44,6 +51,17 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     public Boolean allowAccess(String path) {
         Menu menu = menuMapper.selectAccess(path, cookieUtils.currentUser().getId());
         return Objects.nonNull(menu);
+    }
+
+    @Override
+    public Boolean delete(Long id) {
+        CompetenceDTO competenceDTO = competenceService.queryCompetence(id, cookieUtils.currentUser().getId());
+        if (Objects.isNull(competenceDTO)) throw new RdosDefineException(Code.PERMISSION_DENIED);
+
+        // 删除角色权限字典关联
+
+        // 删除权限
+        return true;
     }
 
     /**
