@@ -24,6 +24,11 @@ public class CurrentUserVO {
      */
     private String avatar;
 
+    /**
+     * 是否为admin用户
+     */
+    private Boolean admin;
+
     public Long getId() {
         return id;
     }
@@ -46,5 +51,13 @@ public class CurrentUserVO {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 }

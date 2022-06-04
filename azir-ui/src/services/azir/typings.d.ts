@@ -26,6 +26,7 @@ declare namespace API {
   type CurrentUser = {
     username?: string;
     avatar?: string;
+    admin?: boolean;
     userid?: string;
     email?: string;
     signature?: string;

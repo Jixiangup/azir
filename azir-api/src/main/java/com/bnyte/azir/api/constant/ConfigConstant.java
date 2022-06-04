@@ -6,5 +6,5 @@ package com.bnyte.azir.api.constant;
  */
 public class ConfigConstant {
     // 枚举根节点id标识
-    public final static Long menuRootId = -1L;
+    public final static Long MENU_ROOT_ID = -1L;
 }

@@ -7,6 +7,7 @@ import com.bnyte.forge.annotation.APIHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,8 +41,29 @@ public class MenuController {
     @APIHelper
     @DeleteMapping("/delete/{id}")
     @ApiOperation("删除菜单路由")
-    R<Boolean> delete (@PathVariable("id") Long id) {
+    R<Boolean> delete(@PathVariable("id") Long id) {
         return R.ok(menuService.delete(id));
+    }
+
+    @APIHelper
+    @PutMapping("/update")
+    @ApiOperation("更新菜单路由")
+    R<Boolean> update(@RequestBody @Validated MenuVO menuVO) {
+        return R.ok(menuService.updated(menuVO));
+    }
+
+    @APIHelper
+    @PostMapping("/created")
+    @ApiOperation("创建菜单路由")
+    R<Long> created(@RequestBody @Validated MenuVO menuVO) {
+        return R.ok(menuService.created(menuVO));
+    }
+
+    @APIHelper
+    @GetMapping("/info/{id}")
+    @ApiOperation("获取路由信息")
+    R<MenuVO> info(@PathVariable("id") Long id) {
+        return R.ok(menuService.info(id));
     }
 
 }

@@ -22,5 +22,7 @@ public interface MenuTransfer {
 
     List<MenuVO> toVOS(List<Menu> menus);
 
+    Menu domain(MenuVO menu);
+
 
 }

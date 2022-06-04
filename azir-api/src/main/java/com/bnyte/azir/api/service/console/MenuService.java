@@ -17,4 +17,14 @@ public interface MenuService extends IService<Menu> {
     Boolean allowAccess(String path);
 
     Boolean delete(Long id);
+
+    Boolean updated(MenuVO menuVO);
+
+    Menu queryForName(String name);
+
+    Menu queryForPath(String path);
+
+    Long created(MenuVO menuVO);
+
+    MenuVO info(Long id);
 }

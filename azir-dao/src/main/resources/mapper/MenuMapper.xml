@@ -22,12 +22,12 @@
         left join t_console_competence tcc on trc.competence_id = tcc.id
         left join t_console_menu menu on menu.id = tcc.menu_id
         where tcu.id = #{userId}
-            and tru.deleted != false
-            and tcu.deleted != false
-            and tcr.deleted != false
-            and trc.deleted != false
-            and tcc.deleted != false
-            and menu.deleted != false
+            and tru.deleted != true
+            and tcu.deleted != true
+            and tcr.deleted != true
+            and trc.deleted != true
+            and tcc.deleted != true
+            and menu.deleted != true
         order by menu.weights;
     </select>
 
@@ -41,12 +41,12 @@
         left join t_console_competence tcc on trc.competence_id = tcc.id
         left join t_console_menu menu on menu.id = tcc.menu_id
         where tcu.id = #{userId} and menu.path = #{path}
-            and tru.deleted != false
-            and tcu.deleted != false
-            and tcr.deleted != false
-            and trc.deleted != false
-            and tcc.deleted != false
-            and menu.deleted != false
+            and tru.deleted != true
+            and tcu.deleted != true
+            and tcr.deleted != true
+            and trc.deleted != true
+            and tcc.deleted != true
+            and menu.deleted != true
         limit 0, 1;
     </select>
 </mapper>

@@ -7,7 +7,7 @@
     </sql>
 
     <sql id="infoJoin">
-        competence.id, competence.menu_id, competence.gmt_create, competence.gmt_modified, competence.deleted
+        competence.id, competence.menu_id, competence.gmt_create, competence.gmt_modified, competence.deleted, competence.remove, competence.edit
     </sql>
 
     <sql id="tableName">t_console_competence</sql>

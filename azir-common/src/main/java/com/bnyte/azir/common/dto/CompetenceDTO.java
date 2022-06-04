@@ -9,6 +9,8 @@ public class CompetenceDTO {
     private Long menuId;
     private Long userId;
     private Long roleId;
+    private Boolean remove;
+    private Boolean edit;
 
     public Long getId() {
         return id;
@@ -40,5 +42,21 @@ public class CompetenceDTO {
 
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public Boolean getRemove() {
+        return remove;
+    }
+
+    public void setRemove(Boolean remove) {
+        this.remove = remove;
+    }
+
+    public Boolean getEdit() {
+        return edit;
+    }
+
+    public void setEdit(Boolean edit) {
+        this.edit = edit;
     }
 }

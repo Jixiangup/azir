@@ -15,11 +15,37 @@ public class Competence extends AutoId {
      */
     private Long menuId;
 
+    /**
+     * 是否有删除权限
+     */
+    private Boolean remove;
+
+    /**
+     * 是否有编辑权限
+     */
+    private Boolean edit;
+
     public Long getMenuId() {
         return menuId;
     }
 
     public void setMenuId(Long menuId) {
         this.menuId = menuId;
+    }
+
+    public Boolean getRemove() {
+        return remove;
+    }
+
+    public void setRemove(Boolean remove) {
+        this.remove = remove;
+    }
+
+    public Boolean getEdit() {
+        return edit;
+    }
+
+    public void setEdit(Boolean edit) {
+        this.edit = edit;
     }
 }

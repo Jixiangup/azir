@@ -1,8 +1,10 @@
 package com.bnyte.azir.api.vo.menu;
 
+import com.bnyte.azir.api.constant.ConfigConstant;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -16,16 +18,21 @@ public class MenuVO {
     private Long id;
 
     @ApiModelProperty("父节点Id")
-    private Long parentId;
+    private Long parentId = ConfigConstant.MENU_ROOT_ID;
 
     @ApiModelProperty("菜单路由名称")
+    @NotBlank(message = "菜单路由名称不能为空")
     private String name;
 
     @ApiModelProperty("路由icon")
     private String icon;
 
     @ApiModelProperty("路由路径")
+    @NotBlank(message = "菜单路由地址不能为空")
     private String path;
+
+    @ApiModelProperty("权重")
+    private Integer weights;
 
     @ApiModelProperty("当前路由的子路由")
     private List<MenuVO> children;
@@ -76,5 +83,13 @@ public class MenuVO {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public Integer getWeights() {
+        return weights;
+    }
+
+    public void setWeights(Integer weights) {
+        this.weights = weights;
     }
 }

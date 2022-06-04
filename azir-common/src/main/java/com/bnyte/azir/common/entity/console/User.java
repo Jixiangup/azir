@@ -30,6 +30,11 @@ public class User extends AutoId {
      */
     private String avatar;
 
+    /**
+     * 是否为admin用户
+     */
+    private Boolean admin;
+
     public String getAccount() {
         return account;
     }
@@ -60,5 +65,13 @@ public class User extends AutoId {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 }
