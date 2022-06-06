@@ -23,6 +23,15 @@ declare namespace API {
     children?: Menu[];
   };
 
+  /** 用户 */
+  type User = {
+    id?: number;
+    account?: string;
+    username?: string;
+    avatar?: string;
+    admin?: boolean;
+  };
+
   type CurrentUser = {
     username?: string;
     avatar?: string;

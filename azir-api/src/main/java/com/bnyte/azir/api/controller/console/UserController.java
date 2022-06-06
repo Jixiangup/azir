@@ -1,6 +1,7 @@
 package com.bnyte.azir.api.controller.console;
 
 import com.bnyte.azir.api.vo.user.CurrentUserVO;
+import com.bnyte.azir.api.vo.user.UserVO;
 import com.bnyte.azir.common.web.response.R;
 import com.bnyte.azir.api.vo.user.LoginVO;
 import com.bnyte.azir.api.service.console.UserService;
@@ -10,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author bnyte
@@ -36,6 +39,20 @@ public class UserController {
     @GetMapping("/current_user")
     R<CurrentUserVO> currentUser() {
         return R.ok(userService.currentUser());
+    }
+
+    @APIHelper
+    @ApiOperation("用户列表")
+    @GetMapping("/list")
+    R<List<UserVO>> users() {
+        return R.ok(userService.users());
+    }
+
+    @APIHelper
+    @ApiOperation("用户详情")
+    @GetMapping("/info/{id}")
+    R<UserVO> info(@PathVariable("id") Long id) {
+        return R.ok(userService.info(id));
     }
 
 }

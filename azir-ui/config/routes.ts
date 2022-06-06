@@ -18,6 +18,10 @@
     ],
   },
   {
+    path: '/account',
+    component: './account',
+  },
+  {
     path: '/welcome',
     name: 'welcome',
     icon: 'smile',

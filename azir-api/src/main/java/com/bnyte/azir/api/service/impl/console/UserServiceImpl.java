@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bnyte.azir.api.mapstruct.UserTransfer;
 import com.bnyte.azir.api.service.console.TenantService;
 import com.bnyte.azir.api.vo.user.CurrentUserVO;
+import com.bnyte.azir.api.vo.user.UserVO;
 import com.bnyte.azir.common.entity.console.Tenant;
 import com.bnyte.azir.common.entity.console.User;
 import com.bnyte.azir.common.enums.ECookie;
@@ -22,6 +23,7 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -97,5 +99,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         User user = getById(userForToken.getId());
         return UserTransfer.INSTANCE.toCurrentUserVO(user);
+    }
+
+    @Override
+    public List<UserVO> users() {
+        return UserTransfer.INSTANCE.toVOS(list());
+    }
+
+    @Override
+    public UserVO info(Long id) {
+        return UserTransfer.INSTANCE.toVO(getById(id));
     }
 }

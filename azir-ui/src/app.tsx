@@ -6,7 +6,7 @@ import { history, Link } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import { currentUser as queryCurrentUser } from './services/azir/api';
-import { BookOutlined, LinkOutlined, SlidersOutlined } from '@ant-design/icons';
+import { BookOutlined, LinkOutlined, SlidersOutlined, UserOutlined } from '@ant-design/icons';
 import defaultSettings from '../config/defaultSettings';
 import { list as queryMenus } from './services/azir/menu';
 import { message } from 'antd';
@@ -18,8 +18,9 @@ const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 
 const IconMap = {
-  smile: <SmileOutlined />,
+  SmileOutlined: <SmileOutlined />,
   SlidersOutlined: <SlidersOutlined />,
+  UserOutlined: <UserOutlined />,
 };
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
