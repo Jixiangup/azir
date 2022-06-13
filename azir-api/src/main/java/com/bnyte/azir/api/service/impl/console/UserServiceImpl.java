@@ -95,7 +95,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (Objects.isNull(tenant)) {
             cookieUtils.remove(ECookie.TENANT_ID.getKey());
             cookieUtils.remove(ECookie.TENANT_NAME.getKey());
-        };
+        }
 
         User user = getById(userForToken.getId());
         return UserTransfer.INSTANCE.toCurrentUserVO(user);
