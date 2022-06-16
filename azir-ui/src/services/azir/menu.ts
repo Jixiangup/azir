@@ -44,7 +44,7 @@ export const update = async (payload: API.Menu): Promise<API.R<boolean>> => {
 };
 
 /** 路由信息 */
-export const info = async (id: number): Promise<API.R<API.Menu>> => {
+export const info = async (id: number | undefined | null): Promise<API.R<API.Menu>> => {
     return request(`/azir/menu/info/${id}`, {
         method: 'GET'
     });

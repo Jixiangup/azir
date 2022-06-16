@@ -110,4 +110,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public UserVO info(Long id) {
         return UserTransfer.INSTANCE.toVO(getById(id));
     }
+
+    @Override
+    public void logout() {
+        ECookie.logoutKeys().forEach(cookie -> cookieUtils.remove(cookie.getKey()));
+    }
 }

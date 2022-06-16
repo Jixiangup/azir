@@ -7,6 +7,7 @@ import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
 import { outLogin } from '@/services/azir/api';
 import type { MenuInfo } from 'rc-menu/lib/interface';
+import type { ItemType } from 'antd/es/menu/hooks/useItems';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -30,7 +31,7 @@ const loginOut = async () => {
   }
 };
 
-const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
+const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
 
   const onMenuClick = useCallback(
@@ -45,6 +46,24 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     },
     [setInitialState],
   );
+
+  const menuItems: ItemType[] = [
+    {
+         key: 'center',
+         icon: <UserOutlined />,
+         label: '个人中心',
+     },
+     {
+         key: 'settings',
+         icon: <SettingOutlined />,
+         label: '个人设置',
+     },
+     {
+         key: 'logout',
+         icon: <LogoutOutlined />,
+         label: '退出登录',
+     },
+   ]
 
   const loading = (
     <span className={`${styles.action} ${styles.account}`}>
@@ -69,26 +88,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   }
 
   const menuHeaderDropdown = (
-    <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-      {menu && (
-        <Menu.Item key="center">
-          <UserOutlined />
-          个人中心
-        </Menu.Item>
-      )}
-      {menu && (
-        <Menu.Item key="settings">
-          <SettingOutlined />
-          个人设置
-        </Menu.Item>
-      )}
-      {menu && <Menu.Divider />}
-
-      <Menu.Item key="logout">
-        <LogoutOutlined />
-        退出登录
-      </Menu.Item>
-    </Menu>
+    <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick} items={menuItems} />
   );
   return (
     <HeaderDropdown overlay={menuHeaderDropdown}>

@@ -13,13 +13,12 @@ import java.util.List;
 public interface ClusterService extends IService<Cluster> {
     void create(ClusterVO clusterVO);
 
-    List<ClusterVO> listByTenant();
+    List<ClusterVO> vos();
 
     void deleteForTenantId(Long id);
-
-    List<Cluster> listByTenantId(Long tenantId);
 
     void deleteById(Long id);
 
     void updateCluster(ClusterVO clusterVO);
+
 }

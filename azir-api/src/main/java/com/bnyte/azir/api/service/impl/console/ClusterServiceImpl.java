@@ -44,13 +44,10 @@ public class ClusterServiceImpl extends ServiceImpl<ClusterMapper, Cluster> impl
     }
 
     @Override
-    public List<ClusterVO> listByTenant() {
+    public List<ClusterVO> vos() {
         String tenantId = cookieUtils.getValue(ECookie.TENANT_ID.getKey());
         if (!StringUtils.hasText(tenantId)) throw new RdosDefineException(Code.NO_TENANT_SELECTED);
-        List<Cluster> clusters = list(
-                Wrappers.lambdaQuery(Cluster.class)
-                        .eq(Cluster::getTenantId, tenantId)
-        );
+        List<Cluster> clusters = list();
         return ClusterTransfer.INSTANCE.toVOS(clusters);
     }
 
@@ -58,20 +55,13 @@ public class ClusterServiceImpl extends ServiceImpl<ClusterMapper, Cluster> impl
     @Transactional
     public void deleteForTenantId(Long id) {
 
-        List<Cluster> clusters = listByTenantId(id);
+        List<Cluster> clusters = list();
         if (CollectionUtils.isEmpty(clusters)) return;
 
         // 后续这里可能会涉及到删除组件
 
         removeByIds(clusters.stream().map(Cluster::getId).collect(Collectors.toList()));
 
-    }
-
-    @Override
-    public List<Cluster> listByTenantId(Long tenantId) {
-        return list(
-                        Wrappers.lambdaQuery(Cluster.class)
-                                .eq(Cluster::getTenantId, tenantId));
     }
 
     @Override

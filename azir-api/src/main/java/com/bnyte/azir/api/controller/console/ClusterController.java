@@ -36,7 +36,7 @@ public class ClusterController {
     @ApiOperation("集群列表")
     @GetMapping("/list")
     R<List<ClusterVO>> list() {
-        return R.ok(clusterService.listByTenant());
+        return R.ok(clusterService.vos());
     }
 
     @APIHelper

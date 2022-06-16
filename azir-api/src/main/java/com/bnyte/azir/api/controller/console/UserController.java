@@ -55,4 +55,13 @@ public class UserController {
         return R.ok(userService.info(id));
     }
 
+    @APIHelper
+    @DeleteMapping("/logout")
+    @ApiOperation("登出")
+    R<Void> logout() {
+        userService.logout();
+        return R.empty();
+    }
+
+
 }

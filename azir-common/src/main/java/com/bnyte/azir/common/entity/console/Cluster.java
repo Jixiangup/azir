@@ -20,11 +20,6 @@ public class Cluster extends AutoId {
      */
     private String enName;
 
-    /**
-     * 集群租户id
-     */
-    private Long tenantId;
-
     public String getCnName() {
         return cnName;
     }
@@ -39,13 +34,5 @@ public class Cluster extends AutoId {
 
     public void setEnName(String enName) {
         this.enName = enName;
-    }
-
-    public Long getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
     }
 }

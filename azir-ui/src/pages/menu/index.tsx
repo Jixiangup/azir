@@ -2,9 +2,11 @@ import { created as createMenu, deleteById as deleteMenuById, info as queryMenuI
 import { useEffect, useState } from 'react';
 import type { ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { Button, Drawer, message, Popconfirm, Form, Input, InputNumber, Tooltip } from 'antd';
+import { Button, Drawer, message, Popconfirm, Form, Input, InputNumber, Tooltip, TreeSelect } from 'antd';
 import { assertPath } from '@/util/AssertUtils';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+
+
 
 /**
  * 路由列表首页,显示所有路由
@@ -18,18 +20,21 @@ const Menu: React.FC = () => {
 
     const [menuInfo] = Form.useForm()
 
-    const showCreateMenu = (id: number | undefined | any) => {
+    const [selectMenu, setSelectMenu] = useState<string | null>();
+
+    const showCreateMenu = (id: number | undefined | null, name: string | null) => {
         queryMenuInfo(id).then(response => {
             if (response.status) {
-                menuInfo.setFieldsValue(response.data)
-            }
-            
+                const data = response.data;
+                // data!.parentId = response.data?.name
+                menuInfo.setFieldsValue(data);
+            } 
         })
         .catch(error => {
             message.error("路由菜单信息获取失败" + error?.message);
         })
         setVisible(true);
-
+        setSelectMenu(name);
     };
 
     const onCloseCreateMenu = () => {
@@ -49,6 +54,7 @@ const Menu: React.FC = () => {
     }
 
     const handlerFormOnFinish = (values: API.Menu) => {
+        debugger
         if (!values?.id) {
             createMenu(values).then(response => {
                 if (response.status) {
@@ -116,7 +122,7 @@ const Menu: React.FC = () => {
           key: 'option',
           valueType: 'option',
           render: (_, record) => [
-            <Button type='primary' key="edit_menu" onClick={() => showCreateMenu(record?.id)}>编辑</Button>,
+            <Button type='primary' key="edit_menu" onClick={() => showCreateMenu(record?.id, record.name)}>编辑</Button>,
             <Popconfirm key='delete_menu'
                 title="你确定删除这条路由吗?"
                 onConfirm={() => confirmRemoveMenu(record?.id)}
@@ -167,7 +173,7 @@ const Menu: React.FC = () => {
                 headerTitle="路由列表"
                 options={false}
                 toolBarRender={() => [
-                    <Button key="primary" type="primary" onClick={() => showCreateMenu(null)}>
+                    <Button key="primary" type="primary" onClick={() => showCreateMenu(null, null)}>
                         创建路由
                     </Button>
                 ]}
@@ -182,7 +188,7 @@ const Menu: React.FC = () => {
                     onFinishFailed={handlerFormOnFinishFailed}
                     autoComplete="off"
                     form={menuInfo}
-                    >
+                >
                     <Form.Item label="id" name="id" hidden>
                         <Input />
                     </Form.Item>
@@ -221,7 +227,18 @@ const Menu: React.FC = () => {
                             </span>
                         }
                         name="parentId">
-                        <Input />
+                        <TreeSelect
+                            treeData={tableData}
+                            placeholder="请选择父节点"
+                            value={selectMenu}
+                            fieldNames={
+                                {
+                                    label: "name", 
+                                    value: "id", 
+                                    children: "children"
+                                }
+                            }
+                        />
                     </Form.Item>
 
                     <Form.Item

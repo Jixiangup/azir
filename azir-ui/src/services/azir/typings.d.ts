@@ -14,13 +14,14 @@ declare namespace API {
   /** 路由 */
   type Menu = {
     id?: number;
-    parentId?: number;
-    menu?: string;
-    icon?: string;
-    gmtCreate?: string;
-    path?: string;
-    weights?: weights;
-    children?: Menu[];
+    parentId?: number | string;
+    menu: string;
+    name: string;
+    icon: string;
+    gmtCreate: string;
+    path: string;
+    weights: weights;
+    children: Menu[];
   };
 
   /** 用户 */

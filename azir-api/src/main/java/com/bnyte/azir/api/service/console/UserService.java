@@ -23,4 +23,6 @@ public interface UserService extends IService<User> {
     List<UserVO> users();
 
     UserVO info(Long id);
+
+    void logout();
 }

@@ -86,6 +86,7 @@ const Login: React.FC = () => {
         id: 'pages.login.failure',
         defaultMessage: userLoginState.message,
       });
+      message.destroy();
       message.error(defaultLoginFailureMessage);
     }
   };
