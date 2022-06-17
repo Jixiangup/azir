@@ -121,9 +121,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public void freeze(Long id) {
-        if (!cookieUtils.currentUser().getAdmin()) throw new RdosDefineException(Code.PERMISSION_DENIED);
         User user = getById(id);
         if (Objects.isNull(user)) return;
+        User currentUser = cookieUtils.currentUser();
+        if (!currentUser.getAdmin() || !currentUser.getId().equals(user.getParentUserId())) throw new RdosDefineException(Code.PERMISSION_DENIED);
         if (user.getStatus().equals(EUserStatus.NORMAL.getKey())) return;
         user.setStatus(EUserStatus.FREEZE.getKey());
         updateById(user);
