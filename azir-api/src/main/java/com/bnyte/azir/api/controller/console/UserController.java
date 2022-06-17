@@ -63,5 +63,13 @@ public class UserController {
         return R.empty();
     }
 
+    @APIHelper
+    @DeleteMapping("/freeze/{id}")
+    @ApiOperation("冻结用户")
+    R<Void> freeze(@PathVariable("id") Long id) {
+        userService.freeze(id);
+        return R.empty();
+    }
+
 
 }

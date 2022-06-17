@@ -25,4 +25,6 @@ public interface UserService extends IService<User> {
     UserVO info(Long id);
 
     void logout();
+
+    void freeze(Long id);
 }

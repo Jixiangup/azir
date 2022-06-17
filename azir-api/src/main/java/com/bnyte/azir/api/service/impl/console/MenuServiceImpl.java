@@ -150,7 +150,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     private List<MenuVO> recursivelyQueryChildren(MenuVO root, List<MenuVO> all) {
         return all.stream()
                 .filter(menuVO -> menuVO.getParentId().equals(root.getId()))
-                .peek(menuVO -> recursivelyQueryChildren(menuVO, all))
+                .peek(menuVO -> menuVO.setChildren(recursivelyQueryChildren(menuVO, all)))
                 .collect(Collectors.toList());
     }
 }

@@ -35,6 +35,16 @@ public class User extends AutoId {
      */
     private Boolean admin;
 
+    /**
+     * 所属用户id, 如果为-1则表示为根用户
+     */
+    private Long parentUserId;
+
+    /**
+     * 用户状态
+     */
+    private Integer status;
+
     public String getAccount() {
         return account;
     }
@@ -73,5 +83,21 @@ public class User extends AutoId {
 
     public void setAdmin(Boolean admin) {
         this.admin = admin;
+    }
+
+    public Long getParentUserId() {
+        return parentUserId;
+    }
+
+    public void setParentUserId(Long parentUserId) {
+        this.parentUserId = parentUserId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

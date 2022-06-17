@@ -9,6 +9,7 @@ import com.bnyte.azir.api.vo.user.UserVO;
 import com.bnyte.azir.common.entity.console.Tenant;
 import com.bnyte.azir.common.entity.console.User;
 import com.bnyte.azir.common.enums.ECookie;
+import com.bnyte.azir.common.enums.EUserStatus;
 import com.bnyte.azir.common.exception.RdosDefineException;
 import com.bnyte.azir.common.jwt.JWTHS256;
 import com.bnyte.azir.common.util.CookieUtils;
@@ -103,7 +104,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public List<UserVO> users() {
-        return UserTransfer.INSTANCE.toVOS(list());
+        User currentUser = cookieUtils.currentUser();
+        List<User> users = list(Wrappers.lambdaQuery(User.class).eq(!currentUser.getAdmin(), User::getParentUserId, currentUser.getId()));
+        return UserTransfer.INSTANCE.toVOS(users);
     }
 
     @Override
@@ -114,5 +117,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public void logout() {
         ECookie.logoutKeys().forEach(cookie -> cookieUtils.remove(cookie.getKey()));
+    }
+
+    @Override
+    public void freeze(Long id) {
+        if (!cookieUtils.currentUser().getAdmin()) throw new RdosDefineException(Code.PERMISSION_DENIED);
+        User user = getById(id);
+        if (Objects.isNull(user)) return;
+        if (user.getStatus().equals(EUserStatus.NORMAL.getKey())) return;
+        user.setStatus(EUserStatus.FREEZE.getKey());
+        updateById(user);
     }
 }
