@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bnyte.azir.api.mapstruct.UserTransfer;
 import com.bnyte.azir.api.service.console.TenantService;
+import com.bnyte.azir.api.service.console.UserService;
+import com.bnyte.azir.api.util.CookieUtils;
 import com.bnyte.azir.api.vo.user.CurrentUserVO;
+import com.bnyte.azir.api.vo.user.LoginVO;
 import com.bnyte.azir.api.vo.user.UserVO;
 import com.bnyte.azir.common.entity.console.Tenant;
 import com.bnyte.azir.common.entity.console.User;
@@ -12,18 +15,14 @@ import com.bnyte.azir.common.enums.ECookie;
 import com.bnyte.azir.common.enums.EUserStatus;
 import com.bnyte.azir.common.exception.RdosDefineException;
 import com.bnyte.azir.common.jwt.JWTHS256;
-import com.bnyte.azir.common.util.CookieUtils;
 import com.bnyte.azir.common.web.response.Code;
 import com.bnyte.azir.dao.mapper.UserMapper;
-import com.bnyte.azir.api.service.console.UserService;
-import com.bnyte.azir.api.vo.user.LoginVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -128,5 +127,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (user.getStatus().equals(EUserStatus.NORMAL.getKey())) return;
         user.setStatus(EUserStatus.FREEZE.getKey());
         updateById(user);
+    }
+
+    @Override
+    public Boolean updateAdmin(Long id) {
+        User user = getById(id);
+        if (Objects.isNull(user)) return true;
+        User currentUser = cookieUtils.currentUser();
+        if (!currentUser.getAdmin() && !currentUser.getId().equals(user.getParentUserId())) throw new RdosDefineException(Code.PERMISSION_DENIED);
+        user.setAdmin(!user.getAdmin());
+        return updateById(user);
     }
 }

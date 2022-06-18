@@ -9,6 +9,13 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel("用户对象")
 public class UserVO {
+
+    /**
+     * 用户主键id
+     */
+    @ApiModelProperty("主键")
+    private Long id;
+
     /**
      * 用户登录账号
      */
@@ -32,6 +39,14 @@ public class UserVO {
      */
     @ApiModelProperty("是否为admin用户")
     private Boolean admin;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getAccount() {
         return account;

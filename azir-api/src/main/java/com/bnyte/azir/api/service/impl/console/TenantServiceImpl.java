@@ -6,12 +6,12 @@ import com.bnyte.azir.api.constant.MessageConstant;
 import com.bnyte.azir.api.mapstruct.TenantTransfer;
 import com.bnyte.azir.api.service.console.ClusterService;
 import com.bnyte.azir.api.service.console.TenantService;
+import com.bnyte.azir.api.util.CookieUtils;
 import com.bnyte.azir.api.vo.tenant.TenantVO;
 import com.bnyte.azir.common.entity.console.Tenant;
 import com.bnyte.azir.common.entity.console.User;
 import com.bnyte.azir.common.enums.ECookie;
 import com.bnyte.azir.common.exception.RdosDefineException;
-import com.bnyte.azir.common.util.CookieUtils;
 import com.bnyte.azir.common.web.response.Code;
 import com.bnyte.azir.dao.mapper.TenantMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 

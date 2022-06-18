@@ -1,20 +1,17 @@
-package com.bnyte.azir.common.util;
+package com.bnyte.azir.api.util;
 
 import com.bnyte.azir.common.entity.console.User;
 import com.bnyte.azir.common.enums.ECookie;
-import com.bnyte.azir.common.exception.RdosDefineException;
 import com.bnyte.azir.common.jwt.JWTHS256;
 import com.bnyte.azir.common.web.response.Code;
-import com.bnyte.forge.aop.actuator.APIHelperActuator;
+import com.bnyte.azir.dao.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Objects;
 
 /**
  * @author bnyte
@@ -32,6 +29,9 @@ public class CookieUtils {
 
     @Autowired
     HttpServletResponse response;
+
+    @Autowired
+    UserMapper userMapper;
 
     /**
      * 保存
@@ -113,6 +113,7 @@ public class CookieUtils {
     public User currentUser() {
         String token = getValue(ECookie.X_ACCESS_TOKEN.getKey());
         Assert.notNull(token, Code.AUTHENTICATION_ERROR.getMessage());
-        return JWTHS256.checkToken(token);
+        User user = JWTHS256.checkToken(token);
+        return userMapper.selectById(user.getId());
     }
 }

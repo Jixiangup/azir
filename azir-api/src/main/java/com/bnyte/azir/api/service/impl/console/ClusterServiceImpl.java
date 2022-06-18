@@ -1,17 +1,15 @@
 package com.bnyte.azir.api.service.impl.console;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bnyte.azir.api.mapstruct.ClusterTransfer;
+import com.bnyte.azir.api.service.console.ClusterService;
+import com.bnyte.azir.api.util.CookieUtils;
 import com.bnyte.azir.api.vo.cluster.ClusterVO;
 import com.bnyte.azir.common.entity.console.Cluster;
-import com.bnyte.azir.common.entity.console.Tenant;
 import com.bnyte.azir.common.enums.ECookie;
 import com.bnyte.azir.common.exception.RdosDefineException;
-import com.bnyte.azir.common.util.CookieUtils;
 import com.bnyte.azir.common.web.response.Code;
 import com.bnyte.azir.dao.mapper.ClusterMapper;
-import com.bnyte.azir.api.service.console.ClusterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,9 +17,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**

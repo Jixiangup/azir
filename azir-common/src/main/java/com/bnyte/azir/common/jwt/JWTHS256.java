@@ -2,7 +2,6 @@ package com.bnyte.azir.common.jwt;
 
 import com.bnyte.azir.common.entity.console.User;
 import com.bnyte.azir.common.exception.RdosDefineException;
-import com.bnyte.azir.common.util.CookieUtils;
 import com.bnyte.azir.common.util.JacksonUtils;
 import com.bnyte.azir.common.web.response.Code;
 import com.nimbusds.jose.*;

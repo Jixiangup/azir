@@ -71,5 +71,12 @@ public class UserController {
         return R.empty();
     }
 
+    @APIHelper
+    @PutMapping("/update_admin/{id}")
+    @ApiOperation("更新是否为admin")
+    R<Boolean> updateAdmin(@PathVariable("id") Long id) {
+        return R.ok(userService.updateAdmin(id));
+    }
+
 
 }

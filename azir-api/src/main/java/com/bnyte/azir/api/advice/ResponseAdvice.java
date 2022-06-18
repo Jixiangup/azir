@@ -1,8 +1,8 @@
 package com.bnyte.azir.api.advice;
 
+import com.bnyte.azir.api.util.CookieUtils;
 import com.bnyte.azir.common.enums.ECookie;
 import com.bnyte.azir.common.exception.RdosDefineException;
-import com.bnyte.azir.common.util.CookieUtils;
 import com.bnyte.azir.common.web.response.Code;
 import com.bnyte.azir.common.web.response.R;
 import org.springframework.beans.factory.annotation.Autowired;

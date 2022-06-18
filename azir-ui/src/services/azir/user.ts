@@ -13,3 +13,10 @@ export const info = async (id: number): Promise<API.R<API.User>> => {
         method: 'GET'
     });
 };
+
+// 更新用户是否为admin
+export const updateIsAdmin = async (id: number): Promise<API.R<boolean>> => {
+  return request(`/azir/user//update_admin/${id}`, {
+    method: 'PUT'
+  });
+};
