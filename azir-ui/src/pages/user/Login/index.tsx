@@ -6,7 +6,8 @@ import {
 import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form';
-import { useIntl, history, FormattedMessage, SelectLang, useModel } from 'umi';
+// @ts-ignore
+import {useIntl, history, FormattedMessage, SelectLang, useModel} from 'umi';
 import Footer from '@/components/Footer';
 import { login } from '@/services/azir/api';
 import { getFakeCaptcha } from '@/services/azir/login';
@@ -38,7 +39,7 @@ const Login: React.FC = () => {
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
     if (userInfo) {
-      await setInitialState((s) => ({
+      await setInitialState((s: any) => ({
         ...s,
         currentUser: userInfo,
       }));
@@ -48,7 +49,7 @@ const Login: React.FC = () => {
   const fetchMenus = async () => {
     const menuResp = await initialState?.fetchMenus?.();
     if (menuResp && menuResp.status) {
-      await setInitialState((s) => ({
+      await setInitialState((s: any) => ({
         ...s,
         menus: menuResp.data
       }));
