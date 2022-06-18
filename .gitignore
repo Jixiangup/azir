@@ -8,6 +8,11 @@ classes
 generated-sources
 generated-test-sources
 
+# maven
+maven-archiver
+maven-status
+target
+
 # azir
 conf/application.yaml
 
