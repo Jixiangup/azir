@@ -1,6 +1,7 @@
 import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
 import { SettingDrawer } from '@ant-design/pro-layout';
 import { PageLoading } from '@ant-design/pro-layout';
+// @ts-ignore
 import type { RunTimeLayoutConfig } from 'umi';
 import { history, Link } from 'umi';
 import RightContent from '@/components/RightContent';
@@ -40,7 +41,7 @@ export async function getInitialState(): Promise<{
   fetchMenus?: () => Promise<API.R<API.Menu[]> | undefined>;
 }> {
   const fetchMenus = async () => {
-    const menuResponse = await queryMenus();
+    const menuResponse = await queryMenus(null);
     if (!menuResponse?.status) {
       new Error()
       message.error(menuResponse?.message)
@@ -77,6 +78,7 @@ export async function getInitialState(): Promise<{
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
+// @ts-ignore
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
 
   const handlerMenu = (backendMenus: API.Menu[] | undefined): MenuDataItem[] => {
@@ -127,7 +129,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
     // 增加一个 loading 的状态
-    childrenRender: (children, props) => {
+    childrenRender: (children: any, props: { location: { pathname: string | string[]; }; }) => {
       // if (initialState?.loading) return <PageLoading />;
       return (
         <>

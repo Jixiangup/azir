@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,6 +34,9 @@ public class MenuVO {
 
     @ApiModelProperty("权重")
     private Integer weights;
+
+    @ApiModelProperty("创建时间")
+    private Date gmtCreate;
 
     @ApiModelProperty("当前路由的子路由")
     private List<MenuVO> children;
@@ -91,5 +95,13 @@ public class MenuVO {
 
     public void setWeights(Integer weights) {
         this.weights = weights;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 }

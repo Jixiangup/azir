@@ -1,12 +1,10 @@
-import { deleteById as deleteMenuById, info as queryMenuInfo, list as queryMenus} from '@/services/azir/menu';
+import {deleteById as deleteMenuById, info as queryMenuInfo, list, list as queryMenus} from '@/services/azir/menu';
 import React, { useEffect, useState } from 'react';
 import type { ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { Button, message, Popconfirm, Form} from 'antd';
 import { assertPath } from '@/util/AssertUtils';
 import {Edit} from "@/pages/menu/Edit";
-
-
 
 /**
  * 路由列表首页,显示所有路由
@@ -37,7 +35,7 @@ const Menu: React.FC = () => {
   };
 
   const refreshMenus = () => {
-    queryMenus().then(response => {
+    queryMenus(null).then(response => {
       if (response.status) {
         setTableData(response.data)
       }
@@ -73,7 +71,7 @@ const Menu: React.FC = () => {
     {
       title: '创建时间',
       dataIndex: 'gmtCreate',
-      valueType: 'date'
+      valueType: 'dateTime'
     },
     {
       title: '操作',
@@ -115,9 +113,16 @@ const Menu: React.FC = () => {
         rowKey="id"
         columns={columns}
         dataSource={tableData}
+        /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
         request={(params, sorter, filter) => {
           // 表单搜索项会从 params 传入，传递给后端接口。
-          console.log("111", params, sorter, filter);
+          list(params).then(data => {
+            if (data.status) {
+              setTableData(data.data);
+            }
+          }).catch(error => {
+            message.error(error.message)
+          })
           return Promise.resolve({
             data: tableData,
             success: true,
@@ -126,7 +131,6 @@ const Menu: React.FC = () => {
         pagination={{
           showQuickJumper: true,
         }}
-        search={false}
         dateFormatter="string"
         headerTitle="路由列表"
         options={false}

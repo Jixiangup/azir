@@ -15,6 +15,7 @@ import com.bnyte.azir.common.dto.CompetenceDTO;
 import com.bnyte.azir.common.entity.console.Competence;
 import com.bnyte.azir.common.entity.console.Menu;
 import com.bnyte.azir.common.exception.RdosDefineException;
+import com.bnyte.azir.common.param.menu.MenuSearch;
 import com.bnyte.azir.common.util.CookieUtils;
 import com.bnyte.azir.common.web.response.Code;
 import com.bnyte.azir.dao.mapper.MenuMapper;
@@ -23,6 +24,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -50,18 +53,35 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     UserService userService;
 
     @Override
-    public List<MenuVO> menus() {
+    public List<MenuVO> menus(MenuSearch menuSearch) {
 
         List<Menu> menus = userService.currentUser().getAdmin() ?
-                list(Wrappers.lambdaQuery(Menu.class).orderByAsc(Menu::getWeights)) :
-                menuMapper.selectMenus(cookieUtils.currentUser().getId());
+                list(Wrappers.lambdaQuery(Menu.class)
+                        .like(Objects.nonNull(menuSearch.getIcon()), Menu::getIcon, menuSearch.getIcon())
+                        .like(Objects.nonNull(menuSearch.getName()), Menu::getName, menuSearch.getName())
+                        .like(Objects.nonNull(menuSearch.getPath()), Menu::getPath, menuSearch.getPath())
+                        .orderByAsc(Menu::getWeights)) :
+                menuMapper.selectMenus(cookieUtils.currentUser().getId(), menuSearch);
 
-        List<MenuVO> menuVOS = MenuTransfer.INSTANCE.toVOS(menus);
+        // 处理搜索之后的menu
+        List<Menu> result = new ArrayList<>();
+        if (menuSearch.enableSearch()) handlerMenusParent(menus, result);
+
+        List<MenuVO> menuVOS = MenuTransfer.INSTANCE.toVOS(menuSearch.enableSearch() ? result : menus);
         // 获取所有一级目录
         return menuVOS.stream()
             .filter(menuVO -> menuVO.getParentId().equals(ConfigConstant.MENU_ROOT_ID))
             .peek(menuVO -> menuVO.setChildren(recursivelyQueryChildren(menuVO, menuVOS)))
             .collect(Collectors.toList());
+    }
+
+    private void handlerMenusParent(List<Menu> menus, List<Menu> result) {
+        for (Menu menu : menus) {
+            result.add(menu);
+            if (menu.getParentId().equals(ConfigConstant.MENU_ROOT_ID)) continue;
+            List<Menu> parentMenu = list(Wrappers.lambdaQuery(Menu.class).eq(Menu::getId, menu.getParentId()));
+            handlerMenusParent(parentMenu, result);
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.bnyte.azir.api.controller.console;
 
 import com.bnyte.azir.api.service.console.MenuService;
 import com.bnyte.azir.api.vo.menu.MenuVO;
+import com.bnyte.azir.common.param.menu.MenuSearch;
 import com.bnyte.azir.common.web.response.R;
 import com.bnyte.forge.annotation.APIHelper;
 import io.swagger.annotations.Api;
@@ -27,8 +28,8 @@ public class MenuController {
     @APIHelper
     @GetMapping("/list")
     @ApiOperation("菜单路由列表")
-    R<List<MenuVO>> list() {
-        return R.ok(menuService.menus());
+    R<List<MenuVO>> list(MenuSearch menuSearch) {
+        return R.ok(menuService.menus(menuSearch));
     }
 
     @APIHelper

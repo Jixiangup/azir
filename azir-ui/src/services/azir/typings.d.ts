@@ -24,6 +24,13 @@ declare namespace API {
     children: Menu[];
   };
 
+  /* 查询参数 */
+  type PageSearch<T> = {
+    current: number;
+    pageSize: number;
+    optional: T;
+  }
+
   /** 用户 */
   type User = {
     id?: number;

@@ -28,6 +28,15 @@
             and trc.deleted != true
             and tcc.deleted != true
             and menu.deleted != true
+            <if test="search.name != null">
+                and menu.name like concat('%', #{search.name}, '%')
+            </if>
+            <if test="search.icon != null">
+                and menu.icon like concat('%', #{icon}, '%')
+            </if>
+            <if test="search.path != null">
+                and menu.path like concat('%', #{path}, '%')
+            </if>
         order by menu.weights;
     </select>
 

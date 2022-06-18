@@ -1,8 +1,12 @@
+// @ts-ignore
 import { request } from 'umi';
 
-export const list = async (): Promise<API.R<API.Menu[]>> => {
+export const list = async (optional: any): Promise<API.R<API.Menu[]>> => {
     return request(`/azir/menu/list`, {
-        method: 'GET'
+      method: 'GET',
+      params: {
+        ...optional
+      }
     });
 };
 
