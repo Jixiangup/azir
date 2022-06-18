@@ -1,10 +1,9 @@
 import ProTable from '@ant-design/pro-table';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { list as queryUsers } from '@/services/azir/user';
 import { Button, message, Popconfirm, Switch } from 'antd';
 import type { ProColumns } from '@ant-design/pro-components';
-import { assertPath } from '../../util/AssertUtils';
-import { render } from 'react-dom';
+import { assertPath } from '@/util/AssertUtils';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
 /**
@@ -12,8 +11,8 @@ import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
  */
 const List: React.FC = () => {
 
-        // 表单值对象
-        const [tableData, setTableData] = useState<API.User[] | undefined>([])
+    // 表单值对象
+    const [tableData, setTableData] = useState<API.User[] | undefined>([])
 
     const showCreateUser = (id: number | undefined | any) => {
         console.log('id', id);
@@ -21,7 +20,7 @@ const List: React.FC = () => {
         //     if (response.status) {
         //         menuInfo.setFieldsValue(response.data)
         //     }
-            
+
         // })
         // .catch(error => {
         //     message.error("路由菜单信息获取失败" + error?.message);
@@ -30,7 +29,7 @@ const List: React.FC = () => {
 
     };
 
-    
+
     const confirmRemoveUser = (id: number | undefined) => {
         console.log('id', id);
         // if (id) {
@@ -89,11 +88,10 @@ const List: React.FC = () => {
         queryUsers().then(response => {
             if (response.status) {
                 setTableData(response.data)
-            } else message.error("获取用户列表失败")
+            } else message.error("获取用户列表失败");
         })
         .catch(error => {
-            message.error("获取用户列表失败")
-            throw Error(error)
+            message.error("获取用户列表失败", error);
         })
     }
 

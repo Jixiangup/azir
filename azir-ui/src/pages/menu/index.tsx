@@ -11,265 +11,277 @@ import { QuestionCircleOutlined } from '@ant-design/icons';
 /**
  * 路由列表首页,显示所有路由
  */
-const Menu: React.FC = () => {    
+const Menu: React.FC = () => {
 
-    // 表单值对象
-    const [tableData, setTableData] = useState<API.Menu[] | undefined>([])
+  // 表单值对象
+  const [tableData, setTableData] = useState<API.Menu[] | undefined>([])
 
-    const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-    const [menuInfo] = Form.useForm()
+  const [menuInfo] = Form.useForm()
 
-    const [selectMenu, setSelectMenu] = useState<string | null>();
+  const [selectMenu, setSelectMenu] = useState<string | null>();
 
-    const showCreateMenu = (id: number | undefined | null, name: string | null) => {
-        queryMenuInfo(id).then(response => {
-            if (response.status) {
-                const data = response.data;
-                // data!.parentId = response.data?.name
-                menuInfo.setFieldsValue(data);
-            } 
-        })
-        .catch(error => {
-            message.error("路由菜单信息获取失败" + error?.message);
-        })
-        setVisible(true);
-        setSelectMenu(name);
+  const showCreateMenu = (id: number | undefined | null, name: string | null) => {
+    queryMenuInfo(id).then(response => {
+      if (response.status) {
+        const data = response.data;
+        // data!.parentId = response.data?.name
+        menuInfo.setFieldsValue(data);
+      }
+    })
+      .catch(error => {
+        message.error("路由菜单信息获取失败" + error?.message);
+      })
+    setVisible(true);
+    setSelectMenu(name);
+  };
+
+  const onCloseCreateMenu = () => {
+    setVisible(false);
+  };
+
+  const handlerFoldersTree = (): API.Menu[] => {
+    const result: API.Menu[] = JSON.parse(JSON.stringify(tableData));
+    const data: API.Menu = {
+      id: -1, children: [], gmtCreate: "", icon: "", menu: "", name: "-", path: "", weights: undefined
     };
+    result.push(data);
+    return result.sort((pre, next) => {
+      if (!pre.id || !next.id) return 0;
+      return pre.id - next.id;
+    });
+  }
 
-    const onCloseCreateMenu = () => {
-        setVisible(false);
-    };
+  const menus = () => {
+    queryMenus().then(response => {
+      if (response.status) {
+        setTableData(response.data)
+      }
+    })
+      .catch(error => {
+        message.error("路由菜单获取失败");
+        throw Error(error)
+      })
+  }
 
-    const menus = () => {
-        queryMenus().then(response => {
-            if (response.status) {
-                setTableData(response.data)
-            }
-        })
-        .catch(error => {
-          message.error("路由菜单获取失败");
-          throw Error(error)
-        })
-    }
-
-    const handlerFormOnFinish = (values: API.Menu) => {
-        debugger
-        if (!values?.id) {
-            createMenu(values).then(response => {
-                if (response.status) {
-                    onCloseCreateMenu();
-                    menus();
-                    message.success("路由创建成功")
-                } else {
-                    message.error(response.message)
-                }
-            })
-            .catch(error => {
-                message.error("路由创建失败");
-                throw Error(error)
-            });
+  const handlerFormOnFinish = (values: API.Menu) => {
+    debugger
+    if (!values?.id) {
+      createMenu(values).then(response => {
+        if (response.status) {
+          onCloseCreateMenu();
+          menus();
+          message.success("路由创建成功")
         } else {
-            updateMenu(values).then(response => {
-                if (response.status) {
-                    onCloseCreateMenu();
-                    menus();
-                    message.success("成功")
-                } else {
-                    message.error(response.message)
-                }
-            })
-            .catch(error => {
-                message.error("路由创建失败");
-                throw Error(error)
-            });
+          message.error(response.message)
         }
-    };
-
-    const handlerFormOnFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
-    };
-
-    const confirmRemoveMenu = (id: number | undefined) => {
-        if (id) {
-            deleteMenuById(id);
-            menus();
-            message.success("成功");
+      })
+        .catch(error => {
+          message.error("路由创建失败");
+          throw Error(error)
+        });
+    } else {
+      updateMenu(values).then(response => {
+        if (response.status) {
+          onCloseCreateMenu();
+          menus();
+          message.success("成功")
+        } else {
+          message.error(response.message)
         }
-        else message.warn("删除失败,没有找到合适参数请刷新页面后重试")
+      })
+        .catch(error => {
+          message.error("路由创建失败");
+          throw Error(error)
+        });
     }
+  };
 
-    const columns: ProColumns<API.Menu>[] = [
-        {
-            title: 'Icon',
-            dataIndex: 'icon',
-        },
-        {
-          title: '名称',
-          dataIndex: 'name',
-        },
-        {
-            title: '地址',
-            dataIndex: 'path',
-        },
-        {
-            title: '创建时间',
-            dataIndex: 'gmtCreate',
-            valueType: 'date'
-        },
-        {
-          title: '操作',
-          key: 'option',
-          valueType: 'option',
-          render: (_, record) => [
-            <Button type='primary' key="edit_menu" onClick={() => showCreateMenu(record?.id, record.name)}>编辑</Button>,
-            <Popconfirm key='delete_menu'
-                title="你确定删除这条路由吗?"
-                onConfirm={() => confirmRemoveMenu(record?.id)}
-                okText='删除'
-                cancelText='取消'
-            >
-                <Button key='delete_menu' danger>删除</Button>
-            </Popconfirm>,
-          ],
-        },
-    ];
+  const handlerFormOnFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
-    /**
-     * 钩子函数
-     */
-    useEffect(() => {
+  const confirmRemoveMenu = (id: number | undefined) => {
+    if (id) {
+      deleteMenuById(id);
+      menus();
+      message.success("成功");
+    }
+    else message.warn("删除失败,没有找到合适参数请刷新页面后重试")
+  }
 
-        // 创建之前等
-        // 路由鉴权
-        assertPath();
+  const columns: ProColumns<API.Menu>[] = [
+    {
+      title: 'Icon',
+      dataIndex: 'icon',
+    },
+    {
+      title: '名称',
+      dataIndex: 'name',
+    },
+    {
+      title: '地址',
+      dataIndex: 'path',
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'gmtCreate',
+      valueType: 'date'
+    },
+    {
+      title: '操作',
+      key: 'option',
+      valueType: 'option',
+      render: (_, record) => [
+        <Button type='primary' key="edit_menu" onClick={() => showCreateMenu(record?.id, record.name)}>编辑</Button>,
+        <Popconfirm key='delete_menu'
+                    title="你确定删除这条路由吗?"
+                    onConfirm={() => confirmRemoveMenu(record?.id)}
+                    okText='删除'
+                    cancelText='取消'
+        >
+          <Button key='delete_menu' danger>删除</Button>
+        </Popconfirm>,
+      ],
+    },
+  ];
 
-        // 初始化表单数据
-        menus()
+  /**
+   * 钩子函数
+   */
+  useEffect(() => {
 
-        return () => {
-            // return出来的函数本来就是更新前，销毁前执行的函数，现在不监听任何状态，所以只在销毁前执行
-        };
-    }, []);
-    return (
-        <>
-            <ProTable<API.Menu>
-                rowKey="id"
-                columns={columns}
-                dataSource={tableData}
-                request={(params, sorter, filter) => {
-                    // 表单搜索项会从 params 传入，传递给后端接口。
-                    console.log("111", params, sorter, filter);
-                    return Promise.resolve({
-                        data: tableData,
-                        success: true,
-                    });
-                }}
-                pagination={{
-                    showQuickJumper: true,
-                }}
-                search={false}
-                dateFormatter="string"
-                headerTitle="路由列表"
-                options={false}
-                toolBarRender={() => [
-                    <Button key="primary" type="primary" onClick={() => showCreateMenu(null, null)}>
-                        创建路由
-                    </Button>
-                ]}
-            />
-            <Drawer title="路由管理" placement="right" onClose={onCloseCreateMenu} visible={visible}>
-                <Form
-                    name="basic"
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
-                    initialValues={{ remember: true }}
-                    onFinish={handlerFormOnFinish}
-                    onFinishFailed={handlerFormOnFinishFailed}
-                    autoComplete="off"
-                    form={menuInfo}
-                >
-                    <Form.Item label="id" name="id" hidden>
-                        <Input />
-                    </Form.Item>
+    // 创建之前等
+    // 路由鉴权
+    assertPath();
 
-                    {/* <Tooltip title="这是一条提示">
+    // 初始化表单数据
+    menus()
+
+    return () => {
+      // return出来的函数本来就是更新前，销毁前执行的函数，现在不监听任何状态，所以只在销毁前执行
+    };
+  }, []);
+  return (
+    <>
+      <ProTable<API.Menu>
+        rowKey="id"
+        columns={columns}
+        dataSource={tableData}
+        request={(params, sorter, filter) => {
+          // 表单搜索项会从 params 传入，传递给后端接口。
+          console.log("111", params, sorter, filter);
+          return Promise.resolve({
+            data: tableData,
+            success: true,
+          });
+        }}
+        pagination={{
+          showQuickJumper: true,
+        }}
+        search={false}
+        dateFormatter="string"
+        headerTitle="路由列表"
+        options={false}
+        toolBarRender={() => [
+          <Button key="primary" type="primary" onClick={() => showCreateMenu(null, null)}>
+            创建路由
+          </Button>
+        ]}
+      />
+      <Drawer title="路由管理" placement="right" onClose={onCloseCreateMenu} visible={visible}>
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          initialValues={{ remember: true }}
+          onFinish={handlerFormOnFinish}
+          onFinishFailed={handlerFormOnFinishFailed}
+          autoComplete="off"
+          form={menuInfo}
+        >
+          <Form.Item label="id" name="id" hidden>
+            <Input />
+          </Form.Item>
+
+          {/* <Tooltip title="这是一条提示">
 
                     </Tooltip> */}
-                    <Form.Item
-                        label={
-                            <span>
-                                名称&nbsp;<Tooltip title="用于显示在左侧路由名称"><QuestionCircleOutlined /></Tooltip>
-                            </span>
-                        }
-                        name="name"
-                        rules={[{ required: true, message: '请输入菜单路由名称!' }]}
-                        >
-                        <Input />
-                    </Form.Item>
+          <Form.Item
+            label={
+              <span>
+                  名称&nbsp;<Tooltip title="用于显示在左侧路由名称"><QuestionCircleOutlined /></Tooltip>
+              </span>
+            }
+            name="name"
+            rules={[{ required: true, message: '请输入菜单路由名称!' }]}
+          >
+            <Input />
+          </Form.Item>
 
-                    <Form.Item
-                        label={
-                            <span>
-                                路径&nbsp;<Tooltip title="当前路由的请求路径"><QuestionCircleOutlined /></Tooltip>
-                            </span>
-                        }
-                        name="path"
-                        rules={[{ required: true, message: '请输入菜单路径!' }]}
-                    >
-                        <Input />
-                    </Form.Item>
+          <Form.Item
+            label={
+              <span>
+                  路径&nbsp;<Tooltip title="当前路由的请求路径"><QuestionCircleOutlined /></Tooltip>
+              </span>
+            }
+            name="path"
+            rules={[{ required: true, message: '请输入菜单路径!' }]}
+          >
+            <Input />
+          </Form.Item>
 
-                    <Form.Item
-                        label={
-                            <span>
-                                父节点&nbsp;<Tooltip title="父节点决定菜单层级"><QuestionCircleOutlined /></Tooltip>
-                            </span>
-                        }
-                        name="parentId">
-                        <TreeSelect
-                            treeData={tableData}
-                            placeholder="请选择父节点"
-                            value={selectMenu}
-                            fieldNames={
-                                {
-                                    label: "name", 
-                                    value: "id", 
-                                    children: "children"
-                                }
-                            }
-                        />
-                    </Form.Item>
+          <Form.Item
+            label={
+              <span>
+                  父节点&nbsp;<Tooltip title="父节点决定菜单层级"><QuestionCircleOutlined /></Tooltip>
+              </span>
+            }
+            name="parentId">
+            <TreeSelect
+              treeData={handlerFoldersTree()}
+              placeholder="请选择父节点"
+              value={selectMenu}
+              fieldNames={
+                {
+                  label: "name",
+                  value: "id",
+                  children: "children"
+                }
+              }
+            />
+          </Form.Item>
 
-                    <Form.Item
-                        label={
-                            <span>
-                                icon&nbsp;<Tooltip title="显示路由icon当为根路由时才会显示"><QuestionCircleOutlined /></Tooltip>
-                            </span>
-                        }
-                        name="icon">
-                        <Input />
-                    </Form.Item>
+          <Form.Item
+            label={
+              <span>
+                  icon&nbsp;<Tooltip title="显示路由icon当为根路由时才会显示"><QuestionCircleOutlined /></Tooltip>
+              </span>
+            }
+            name="icon">
+            <Input />
+          </Form.Item>
 
-                    <Form.Item
-                        label={
-                            <span>
-                                权重&nbsp;<Tooltip title="路由优先级权重,数字越小优先级越高"><QuestionCircleOutlined /></Tooltip>
-                            </span>
-                        }
-                        name="weights">
-                        <InputNumber />
-                    </Form.Item>
-                    
+          <Form.Item
+            label={
+              <span>
+                  权重&nbsp;<Tooltip title="路由优先级权重,数字越小优先级越高"><QuestionCircleOutlined /></Tooltip>
+              </span>
+            }
+            name="weights">
+            <InputNumber />
+          </Form.Item>
 
-                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button type="primary" htmlType="submit">
-                            提交
-                        </Button>
-                    </Form.Item>
-                </Form>
-            </Drawer>
-        </>
-    )
+
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+              提交
+            </Button>
+          </Form.Item>
+        </Form>
+      </Drawer>
+    </>
+  )
 }
 export default Menu;
