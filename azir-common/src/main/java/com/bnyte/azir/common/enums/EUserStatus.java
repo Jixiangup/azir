@@ -2,7 +2,7 @@ package com.bnyte.azir.common.enums;
 
 /**
  * @author bnyte
- * @since 2022/6/17 19:04
+ * @since 1.0.0
  */
 public enum  EUserStatus {
 

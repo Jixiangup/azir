@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author bnyte
- * @since 2022/5/28 3:00
+ * @since 1.0.0
  */
 @Component
 public class CookieUtils {

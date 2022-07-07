@@ -5,7 +5,7 @@ import com.bnyte.azir.common.entity.console.Role;
 
 /**
  * @author bnyte
- * @since 2022/6/4 21:36
+ * @since 1.0.0
  */
 public interface RoleMapper extends BaseMapper<Role> {
 }

@@ -2,7 +2,7 @@ package com.bnyte.azir.common.dto;
 
 /**
  * @author bnyte
- * @since 2022/6/2 15:48
+ * @since 1.0.0
  */
 public class CompetenceDTO {
     private Long id;

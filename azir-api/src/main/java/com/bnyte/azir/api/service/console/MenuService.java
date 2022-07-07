@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @author bnyte
- * @since 2022/5/31 13:11
+ * @since 1.0.0
  */
 public interface MenuService extends IService<Menu> {
     List<MenuVO> menus(MenuSearch menuSearch);

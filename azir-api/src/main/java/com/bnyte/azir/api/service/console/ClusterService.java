@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author bnyte
- * @since 2022/5/26 17:47
+ * @since 1.0.0
  */
 public interface ClusterService extends IService<Cluster> {
     void create(ClusterVO clusterVO);

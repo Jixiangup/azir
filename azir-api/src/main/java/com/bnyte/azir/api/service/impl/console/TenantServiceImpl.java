@@ -24,7 +24,7 @@ import java.util.Objects;
 
 /**
  * @author bnyte
- * @since 2022/5/28 18:25
+ * @since 1.0.0
  */
 @Service
 public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> implements TenantService {

@@ -23,7 +23,7 @@ import java.util.StringJoiner;
 
 /**
  * @author bnyte
- * @since 2022/5/27 18:22
+ * @since 1.0.0
  */
 @RestControllerAdvice(basePackages = "com.bnyte.azir.api.controller")
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {

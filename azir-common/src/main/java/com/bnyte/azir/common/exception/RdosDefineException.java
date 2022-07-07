@@ -4,7 +4,7 @@ import com.bnyte.azir.common.web.response.Code;
 
 /**
  * @author bnyte
- * @since 2022/5/27 17:47
+ * @since 1.0.0
  */
 public class RdosDefineException extends RuntimeException {
 

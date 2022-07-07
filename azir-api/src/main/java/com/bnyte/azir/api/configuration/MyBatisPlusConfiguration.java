@@ -19,7 +19,7 @@ import java.util.Objects;
 
 /**
  * @author bnyte
- * @since 2022/5/28 3:50
+ * @since 1.0.0
  */
 @Configuration
 @MapperScan("com.bnyte.azir.dao.mapper")

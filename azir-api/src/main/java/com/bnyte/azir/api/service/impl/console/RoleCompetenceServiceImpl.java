@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @author bnyte
- * @since 2022/6/4 21:59
+ * @since 1.0.0
  */
 @Service
 public class RoleCompetenceServiceImpl extends ServiceImpl<RoleCompetenceMapper, RoleCompetence> implements RoleCompetenceService {

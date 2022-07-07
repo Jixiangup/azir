@@ -5,7 +5,7 @@ import com.bnyte.azir.common.entity.AutoId;
 
 /**
  * @author bnyte
- * @since 2022/5/26 18:24
+ * @since 1.0.0
  */
 @TableName("t_console_user")
 public class User extends AutoId {

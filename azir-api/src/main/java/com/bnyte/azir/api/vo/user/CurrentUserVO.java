@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 
 /**
  * @author bnyte
- * @since 2022/5/28 7:31
+ * @since 1.0.0
  */
 @ApiModel("当前用户")
 public class CurrentUserVO {

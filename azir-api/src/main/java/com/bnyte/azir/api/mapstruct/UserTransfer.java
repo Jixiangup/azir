@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author bnyte
- * @since 2022/5/28 7:38
+ * @since 1.0.0
  */
 @Mapper
 public interface UserTransfer {

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author bnyte
- * @since 2022/5/28 18:26
+ * @since 1.0.0
  */
 @ApiModel("租户信息")
 public class TenantVO {

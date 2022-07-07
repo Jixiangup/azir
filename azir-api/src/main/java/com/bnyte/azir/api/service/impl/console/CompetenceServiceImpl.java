@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @author bnyte
- * @since 2022/6/2 14:32
+ * @since 1.0.0
  */
 @Service
 public class CompetenceServiceImpl extends ServiceImpl<CompetenceMapper, Competence> implements CompetenceService {

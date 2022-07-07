@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 /**
  * @author bnyte
- * @since 2022/5/28 5:00
+ * @since 1.0.0
  */
 public enum ECookie {
     /**

@@ -7,7 +7,7 @@ import org.aspectj.lang.annotation.Pointcut;
 
 /**
  * @author bnyte
- * @since 2022/6/2 14:05
+ * @since 1.0.0
  */
 @Aspect
 public class AssertMenuHandler {

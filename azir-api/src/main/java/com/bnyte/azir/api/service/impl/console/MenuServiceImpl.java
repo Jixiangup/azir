@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author bnyte
- * @since 2022/5/31 13:13
+ * @since 1.0.0
  */
 @Service
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {

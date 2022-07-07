@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  * @author bnyte
- * @since 2022/5/26 18:33
+ * @since 1.0.0
  */
 @Api("响应结果集")
 public class R<T> implements Serializable {

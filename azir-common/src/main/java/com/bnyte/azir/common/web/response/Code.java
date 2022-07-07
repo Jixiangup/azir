@@ -8,7 +8,7 @@ package com.bnyte.azir.common.web.response;
  * 300-999业务逻辑类异常
  *
  * @author bnyte
- * @since 2022/5/27 16:16
+ * @since 1.0.0
  */
 public enum Code {
     OK(0, "succeed"),
@@ -20,6 +20,7 @@ public enum Code {
     THE_USER_DOES_NOT_EXIST_ERROR(12, "用户不存在"),
     USER_NOT_FOUND(13, "用户未找到"),
     PERMISSION_DENIED(14, "没有找到对应权限"),
+    USERNAME_OR_PASSWORD_ERROR(15, "用户名或密码错误"),
 
     // 校验异常 100 - 199
     VALIDATION_ERROR(100, "%s"),

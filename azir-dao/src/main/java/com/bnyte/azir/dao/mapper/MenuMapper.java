@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @author bnyte
- * @since 2022/5/31 13:15
+ * @since 1.0.0
  */
 public interface MenuMapper extends BaseMapper<Menu> {
     List<Menu> selectMenus(@Param("userId") Long id, @Param("search") MenuSearch search);

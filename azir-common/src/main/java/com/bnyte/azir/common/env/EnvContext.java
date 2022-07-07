@@ -9,11 +9,10 @@ import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.util.StringUtils;
 
 /**
  * @author bnyte
- * @since 2022/5/27 18:55
+ * @since 1.0.0
  */
 @Configuration
 @PropertySource(
@@ -134,5 +133,11 @@ public class EnvContext implements InitializingBean {
         this.serverPort = serverPort;
     }
 
+    public String getContextPath() {
+        return contextPath;
+    }
 
+    public void setContextPath(String contextPath) {
+        this.contextPath = contextPath;
+    }
 }

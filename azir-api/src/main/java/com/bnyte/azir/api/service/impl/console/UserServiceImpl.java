@@ -28,7 +28,7 @@ import java.util.Objects;
 
 /**
  * @author bnyte
- * @since 2022/5/26 18:31
+ * @since 1.0.0
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
@@ -54,9 +54,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         // 密码校验
         User authenticate = authenticateWithPassword(loginVO.getAccount(), loginVO.getPassword());
-        if (Objects.isNull(authenticate)) {
-            throw new RdosDefineException(Code.AUTHENTICATION_ERROR);
-        }
+        if (Objects.isNull(authenticate)) throw new RdosDefineException(Code.USERNAME_OR_PASSWORD_ERROR);
 
         // 生成token
         String token = JWTHS256.buildToken(authenticate);

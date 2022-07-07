@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author bnyte
- * @since 2022/5/28 18:24
+ * @since 1.0.0
  */
 public interface TenantService extends IService<Tenant> {
     List<TenantVO> tenants();

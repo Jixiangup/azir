@@ -11,7 +11,7 @@ import java.util.Properties;
 
 /**
  * @author bnyte
- * @since 2022/5/28 3:35
+ * @since 1.0.0
  */
 public class YAMLPropertySourceAnalyze implements PropertySourceFactory {
     @Override

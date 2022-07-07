@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author bnyte
- * @since 2022/6/2 14:31
+ * @since 1.0.0
  */
 public interface CompetenceService extends IService<Competence> {
     CompetenceDTO queryCompetence(Long menuId, Long userId);

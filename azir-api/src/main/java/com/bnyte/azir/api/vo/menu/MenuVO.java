@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author bnyte
- * @since 2022/5/31 13:16
+ * @since 1.0.0
  */
 @ApiModel("菜单路由")
 public class MenuVO {

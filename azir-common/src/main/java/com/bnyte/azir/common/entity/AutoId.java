@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * @author bnyte
- * @since 2022/5/26 17:34
+ * @since 1.0.0
  */
 public class AutoId {
 

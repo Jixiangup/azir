@@ -19,3 +19,7 @@ conf/application.yaml
 # 前端
 node_modules
 dist
+
+# gradle
+build
+.gradle

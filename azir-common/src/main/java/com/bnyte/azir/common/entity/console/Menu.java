@@ -5,7 +5,7 @@ import com.bnyte.azir.common.entity.AutoId;
 
 /**
  * @author bnyte
- * @since 2022/5/31 13:11
+ * @since 1.0.0
  */
 @TableName("t_console_menu")
 public class Menu extends AutoId {

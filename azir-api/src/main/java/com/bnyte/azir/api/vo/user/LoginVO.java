@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author bnyte
- * @since 2022/5/27 16:31
+ * @since 1.0.0
  */
 @ApiModel("登录")
 public class LoginVO {

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author bnyte
- * @since 2022/5/30 11:32
+ * @since 1.0.0
  */
 @ApiModel("创建集群")
 public class ClusterVO {

@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * @author bnyte
- * @since 2022/6/5 15:24
+ * @since 1.0.0
  */
 @ApiModel("用户对象")
 public class UserVO {
