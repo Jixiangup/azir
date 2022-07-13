@@ -24,17 +24,21 @@ public class AzirMain {
     private static final Logger log = LoggerFactory.getLogger(AzirMain.class);
 
     public static void main(String[] args) {
-        // pre path setting
-        prePathSetting();
+        // pre settings
+        preSettings();
 
-//        ConfigurableApplicationContext context = SpringApplication.run(AzirMain.class, args);
+        // starter application
         ConfigurableApplicationContext context = new SpringApplicationBuilder(AzirMain.class)
                 .main(SpringVersion.class)
                 .bannerMode(Banner.Mode.CONSOLE)
                 .run(args);
 
-        // post-processing
+        // postprocessing
         postProcessing(context);
+    }
+
+    private static void preSettings() {
+        prePathSetting();
     }
 
     /**
@@ -44,7 +48,7 @@ public class AzirMain {
         // logging swagger web address
         SystemUtil systemUtil = context.getBean(SystemUtil.class);
         String swaggerWebAddress = systemUtil.swaggerWebAddress();
-        log.info("swagger started successfully and web address for: {}", swaggerWebAddress);
+        log.info("swagger started successfully and website address for: {}", swaggerWebAddress);
 
     }
 
