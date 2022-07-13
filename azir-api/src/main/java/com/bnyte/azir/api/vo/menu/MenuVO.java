@@ -38,6 +38,12 @@ public class MenuVO {
     @ApiModelProperty("创建时间")
     private Date gmtCreate;
 
+    /**
+     * 是否公开, 即为跳过权限验证, 即使没有权限也可以访问, 但是需要登录, 默认开启校验
+     */
+    @ApiModelProperty("是否公开")
+    private Boolean verify;
+
     @ApiModelProperty("当前路由的子路由")
     private List<MenuVO> children;
 
@@ -103,5 +109,13 @@ public class MenuVO {
 
     public void setGmtCreate(Date gmtCreate) {
         this.gmtCreate = gmtCreate;
+    }
+
+    public Boolean getVerify() {
+        return verify;
+    }
+
+    public void setVerify(Boolean verify) {
+        this.verify = verify;
     }
 }

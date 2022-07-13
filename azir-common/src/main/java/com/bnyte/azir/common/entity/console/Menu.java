@@ -35,6 +35,11 @@ public class Menu extends AutoId {
      */
     private Integer weights;
 
+    /**
+     * 是否公开, 即为跳过权限验证, 即使没有权限也可以访问, 但是需要登录, 默认开启校验
+     */
+    private Boolean verify;
+
     public Long getParentId() {
         return parentId;
     }
@@ -73,5 +78,13 @@ public class Menu extends AutoId {
 
     public void setWeights(Integer weights) {
         this.weights = weights;
+    }
+
+    public Boolean getVerify() {
+        return verify;
+    }
+
+    public void setVerify(Boolean verify) {
+        this.verify = verify;
     }
 }

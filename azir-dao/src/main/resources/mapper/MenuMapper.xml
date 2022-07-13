@@ -9,19 +9,20 @@
     </sql>
 
     <sql id="menuInfoJoin">
-        menu.id, menu.parent_id, menu.name, menu.icon, menu.path, menu.weights, menu.gmt_create, menu.gmt_modified, menu.deleted
+        menu.id, menu.parent_id, menu.name, menu.icon, menu.path, menu.weights, menu.gmt_create, menu.gmt_modified, menu.deleted, menu.verify
     </sql>
 
     <select id="selectMenus" resultType="com.bnyte.azir.common.entity.console.Menu">
         select
             <include refid="menuInfoJoin" />
-        from t_role_user tru
-        left join t_console_user tcu on tru.user_id = tcu.id
-        left join t_console_role tcr on tru.role_id = tcr.id
-        left join t_role_competence trc on trc.role_id = tcr.id
-        left join t_console_competence tcc on trc.competence_id = tcc.id
-        left join t_console_menu menu on menu.id = tcc.menu_id
-        where tcu.id = #{userId}
+        from t_console_menu menu
+        left join t_console_competence tcc on menu.id = tcc.menu_id
+        left join t_role_competence trc on trc.competence_id = tcc.id
+        left join t_console_role tcr on tcr.id = trc.role_id
+        left join t_role_user tru on tru.role_id = tcr.id
+        left join t_console_user tcu on tcu.id = tru.user_id
+        where menu.verify = false or
+            (tcu.id = #{userId}
             and tru.deleted != true
             and tcu.deleted != true
             and tcr.deleted != true
@@ -37,6 +38,7 @@
             <if test="search.path != null">
                 and menu.path like concat('%', #{path}, '%')
             </if>
+            )
         order by menu.weights;
     </select>
 

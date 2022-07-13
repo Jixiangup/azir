@@ -1,5 +1,6 @@
 package com.bnyte.azir.api.mapstruct;
 
+import com.bnyte.azir.api.mapstruct.annotation.InitIgnore;
 import com.bnyte.azir.api.vo.tenant.TenantVO;
 import com.bnyte.azir.common.entity.console.Tenant;
 import org.mapstruct.Mapper;
@@ -18,6 +19,7 @@ public interface TenantTransfer {
 
     TenantVO toTenantVO(Tenant tenant);
 
+    @InitIgnore
     Tenant toTenant(TenantVO tenant);
 
     List<TenantVO> toTenantVOS(List<Tenant> tenants);

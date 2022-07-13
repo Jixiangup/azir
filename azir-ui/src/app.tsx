@@ -7,7 +7,7 @@ import { history, Link } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import { currentUser as queryCurrentUser } from './services/azir/api';
-import { BookOutlined, LinkOutlined, SlidersOutlined, UserOutlined } from '@ant-design/icons';
+import { BookOutlined, ClusterOutlined, LinkOutlined, SlidersOutlined, UserOutlined } from '@ant-design/icons';
 import defaultSettings from '../config/defaultSettings';
 import { list as queryMenus } from './services/azir/menu';
 import { message } from 'antd';
@@ -22,6 +22,7 @@ const IconMap = {
   SmileOutlined: <SmileOutlined />,
   SlidersOutlined: <SlidersOutlined />,
   UserOutlined: <UserOutlined />,
+  ClusterOutlined: <ClusterOutlined />,
 };
 
 /** 获取用户信息比较慢的时候会展示一个 loading */

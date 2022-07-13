@@ -23,6 +23,9 @@ public class TenantVO {
     @NotBlank(message = "租户英文名称不能为空")
     private String enName;
 
+    @ApiModelProperty(hidden = true)
+    private Long userId;
+
     public Long getId() {
         return id;
     }
@@ -45,5 +48,13 @@ public class TenantVO {
 
     public void setEnName(String enName) {
         this.enName = enName;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
