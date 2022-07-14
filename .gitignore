@@ -23,3 +23,6 @@ dist
 # gradle
 build
 .gradle
+azir-api/bin
+azir-common/bin
+azir-dao/bin
