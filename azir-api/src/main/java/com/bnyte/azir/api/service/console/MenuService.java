@@ -27,4 +27,6 @@ public interface MenuService extends IService<Menu> {
     Long created(MenuVO menuVO);
 
     MenuVO info(Long id);
+
+    void resetVerify(Long id);
 }

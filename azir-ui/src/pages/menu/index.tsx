@@ -2,9 +2,11 @@ import {deleteById as deleteMenuById, info as queryMenuInfo, list, list as query
 import React, { useEffect, useState } from 'react';
 import type { ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { Button, message, Popconfirm, Form} from 'antd';
+import { Button, message, Popconfirm, Form, Switch} from 'antd';
 import { assertPath } from '@/util/AssertUtils';
 import {Edit} from "@/pages/menu/Edit";
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { resetVerify as resetVerifyAPI } from '../../services/azir/menu';
 
 /**
  * 路由列表首页,显示所有路由
@@ -55,6 +57,20 @@ const Menu: React.FC = () => {
     else message.warn("删除失败,没有找到合适参数请刷新页面后重试")
   }
 
+  const resetVerify = (id: number) => {
+    if (id) {
+      resetVerifyAPI(id)
+        .then(data => {
+          if (data.status) {
+            message.success("路由权限更新成功");
+            refreshMenus();
+          } else message.error("路由权限更新失败");
+        }).catch(() => {
+        message.error("路由权限更新失败");
+      })
+    }
+  };
+
   const columns: ProColumns<API.Menu>[] = [
     {
       title: 'Icon',
@@ -72,6 +88,20 @@ const Menu: React.FC = () => {
       title: '创建时间',
       dataIndex: 'gmtCreate',
       valueType: 'dateTime'
+    },
+    {
+      title: '权限认证',
+      dataIndex: 'verify',
+      render: (_, record) => {
+        return (
+          <Switch
+            onClick={() => resetVerify(record.id)}
+            checkedChildren={<CheckOutlined/>}
+            unCheckedChildren={<CloseOutlined/>}
+            checked={record.verify}
+          />
+        )
+      }
     },
     {
       title: '操作',

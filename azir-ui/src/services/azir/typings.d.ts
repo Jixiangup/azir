@@ -22,6 +22,7 @@ declare namespace API {
     path: string;
     weights: weights;
     children: Menu[];
+    verify: boolean;
   };
 
   /* 查询参数 */

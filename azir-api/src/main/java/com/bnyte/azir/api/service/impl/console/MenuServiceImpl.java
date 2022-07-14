@@ -160,6 +160,14 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         return MenuTransfer.INSTANCE.toVO(menu);
     }
 
+    @Override
+    public void resetVerify(Long id) {
+        Menu menu = getById(id);
+        if (Objects.isNull(menu)) return;
+        menu.setVerify(!menu.getVerify());
+        updateById(menu);
+    }
+
     /**
      * 通过父节点id从所有节点中获取当前父节点的所有子节点
      * @param root 根节点

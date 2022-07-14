@@ -67,4 +67,12 @@ public class MenuController {
         return R.ok(menuService.info(id));
     }
 
+    @APIHelper
+    @PutMapping("/reset_verify/{id}")
+    @ApiOperation(value = "重置路由验证权限", notes = "如果当前为需要认证则重置为不需要认证, 反之亦然")
+    R<Void> resetVerify(@PathVariable("id") Long id) {
+        menuService.resetVerify(id);
+        return R.empty();
+    }
+
 }

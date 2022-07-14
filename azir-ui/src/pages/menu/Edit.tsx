@@ -29,7 +29,7 @@ export const Edit: React.FC<Menu.EditProps> = (props) => {
   const handlerFoldersTree = (): API.Menu[] => {
     const result: API.Menu[] = JSON.parse(JSON.stringify(menus));
     const data: API.Menu = {
-      id: -1, children: [], gmtCreate: "", icon: "", menu: "", name: "-", path: "", weights: undefined
+      id: -1, children: [], gmtCreate: "", icon: "", menu: "", name: "-", path: "", weights: undefined, verify: true
     };
     result.push(data);
     return result.filter(item => {

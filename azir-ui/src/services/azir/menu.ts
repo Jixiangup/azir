@@ -53,3 +53,9 @@ export const info = async (id: number | undefined | null): Promise<API.R<API.Men
         method: 'GET'
     });
 };
+
+export const resetVerify = async (id: number): Promise<API.R<void>> => {
+    return request(`/azir/menu/reset_verify/${id}`, {
+        method: 'PUT'
+    });
+}
