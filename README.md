@@ -6,4 +6,26 @@
 
 ## 未来规划
 
+## 参与贡献
+
+- 提[ issue ](https://github,com/bnyte/azir/issues), 如果在`issue`中已经有您想解决的问题, 可以直接将该`issue`分配给您自己.如果没有,您可以新建一个`issue`.
+- Fork本项目仓库
+- 新建分支,分支名称模板为`${issueType}_${issueId}: ${cimmitMessage}`规范如下
+<details>
+<summary>PR分支规范</summary>
+<li>feat: 新功能(feature)</li>
+<li>fix: 修复bug</li>
+<li>docs: 文档注释</li>
+<li>style: 代码格式(不影响代码运行的变动)</li>
+<li>refactor: 重构、优化(既不增加新功能，也不是修复bug)</li>
+<li>perf: 性能优化</li>
+<li>test: 增加测试</li>
+<li>chore: 构建过程或辅助工具的变动</li>
+<li>revert: 回退</li>
+<li>build: 打包</li>
+比如修复一个bug：`feat_123: added on Kubernetes schedule(#123) supported`
+</details>
+    
+- 
+
 ## 鸣谢
