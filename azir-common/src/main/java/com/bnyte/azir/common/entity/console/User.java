@@ -1,7 +1,11 @@
 package com.bnyte.azir.common.entity.console;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.bnyte.azir.common.constant.ConfigConstant;
 import com.bnyte.azir.common.entity.AutoId;
+import org.springframework.util.DigestUtils;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author bnyte
@@ -99,5 +103,10 @@ public class User extends AutoId {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public User initPassword() {
+        this.setPassword(DigestUtils.md5DigestAsHex(ConfigConstant.DEFAULT_USER_PASSWORD.getBytes(StandardCharsets.UTF_8)));
+        return this;
     }
 }

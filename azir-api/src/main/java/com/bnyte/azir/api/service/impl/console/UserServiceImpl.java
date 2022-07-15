@@ -136,4 +136,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setAdmin(!user.getAdmin());
         return updateById(user);
     }
+
+    @Override
+    public void createdSubUser(UserVO vo) {
+        User currentUser = cookieUtils.currentUser();
+        User domain = UserTransfer.INSTANCE.domain(vo).initPassword();
+        domain.setId(null);
+        domain.setAdmin(false);
+        domain.setParentUserId(currentUser.getId());
+        save(domain);
+    }
 }

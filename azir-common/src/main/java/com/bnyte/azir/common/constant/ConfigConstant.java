@@ -1,4 +1,4 @@
-package com.bnyte.azir.api.constant;
+package com.bnyte.azir.common.constant;
 
 /**
  * @author bnyte
@@ -17,4 +17,9 @@ public class ConfigConstant {
      * 默认本机地址
      */
     public final static String DEFAULT_LOCAL_ADDRESS = "127.0.0.1";
+
+    /**
+     * 创建用户的默认密码MD5: e10adc3949ba59abbe56e057f20f883e
+     */
+    public static final String DEFAULT_USER_PASSWORD = "123456";
 }

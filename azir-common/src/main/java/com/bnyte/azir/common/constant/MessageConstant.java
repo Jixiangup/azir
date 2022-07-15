@@ -1,4 +1,4 @@
-package com.bnyte.azir.api.constant;
+package com.bnyte.azir.common.constant;
 
 /**
  * @author bnyte

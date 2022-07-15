@@ -2,7 +2,7 @@ package com.bnyte.azir.api.service.impl.console;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.bnyte.azir.api.constant.MessageConstant;
+import com.bnyte.azir.common.constant.MessageConstant;
 import com.bnyte.azir.api.mapstruct.TenantTransfer;
 import com.bnyte.azir.api.service.console.ClusterService;
 import com.bnyte.azir.api.service.console.TenantService;

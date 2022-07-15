@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import static com.bnyte.azir.api.constant.ConfigConstant.DEFAULT_LOCAL_ADDRESS;
-import static com.bnyte.azir.api.constant.ConfigConstant.SWAGGER_PATH;
+import static com.bnyte.azir.common.constant.ConfigConstant.DEFAULT_LOCAL_ADDRESS;
+import static com.bnyte.azir.common.constant.ConfigConstant.SWAGGER_PATH;
 
 /**
  * @author bnyte
@@ -25,7 +25,7 @@ public class SystemUtil {
     EnvContext envContext;
 
     public String swaggerWebAddress() {
-        InetAddress address = null;
+        InetAddress address;
         try {
             address = InetAddress.getLocalHost();
         } catch (UnknownHostException e) {

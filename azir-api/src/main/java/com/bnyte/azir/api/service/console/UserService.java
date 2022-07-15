@@ -29,4 +29,6 @@ public interface UserService extends IService<User> {
     void freeze(Long id);
 
     Boolean updateAdmin(Long id);
+
+    void createdSubUser(UserVO vo);
 }

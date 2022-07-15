@@ -37,7 +37,7 @@ public class UserVO {
     /**
      * 是否为admin用户
      */
-    @ApiModelProperty("是否为admin用户")
+    @ApiModelProperty("是否为admin用户, 新建用户时提交无效")
     private Boolean admin;
 
     public Long getId() {

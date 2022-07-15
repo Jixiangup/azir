@@ -2,8 +2,8 @@ package com.bnyte.azir.api.service.impl.console;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.bnyte.azir.api.constant.ConfigConstant;
-import com.bnyte.azir.api.constant.MessageConstant;
+import com.bnyte.azir.common.constant.ConfigConstant;
+import com.bnyte.azir.common.constant.MessageConstant;
 import com.bnyte.azir.api.mapstruct.MenuTransfer;
 import com.bnyte.azir.api.service.console.CompetenceService;
 import com.bnyte.azir.api.service.console.MenuService;

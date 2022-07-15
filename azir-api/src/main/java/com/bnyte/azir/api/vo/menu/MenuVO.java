@@ -1,6 +1,6 @@
 package com.bnyte.azir.api.vo.menu;
 
-import com.bnyte.azir.api.constant.ConfigConstant;
+import com.bnyte.azir.common.constant.ConfigConstant;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

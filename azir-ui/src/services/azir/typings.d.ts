@@ -13,7 +13,7 @@ declare namespace API {
 
   /** 路由 */
   type Menu = {
-    id?: number;
+    id: number;
     parentId?: number | string;
     menu: string;
     name: string;

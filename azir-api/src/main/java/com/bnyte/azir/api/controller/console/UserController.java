@@ -78,5 +78,13 @@ public class UserController {
         return R.ok(userService.updateAdmin(id));
     }
 
+    @APIHelper
+    @PostMapping("/created_sub_user")
+    @ApiOperation("创建子用户")
+    R<Void> createdSubUser(@RequestBody @Validated UserVO vo) {
+        userService.createdSubUser(vo);
+        return R.empty();
+    }
+
 
 }
