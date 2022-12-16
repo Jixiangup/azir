@@ -1,4 +1,4 @@
-<h1 align="center">Azir - 分布式大数据中台解决方案</h1>
+<h1 align="center">Azir - <!-- 分布式大数据中台解决方案 --></h1>
 
 ## 快速开始
 
